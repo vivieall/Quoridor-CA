@@ -4,11 +4,12 @@ import busqueda
 import random
 import copy
 from sys import maxint
-minint = -maxint -1
+
+minint = -maxint - 1
 
 
 class Computadora(Jugador):
-    def __init__(self,num):
+    def __init__(self, num):
         super(Computadora, self).__init__(num)
         if self.jugador_num == 1:
             self.win_fila = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0)]
@@ -19,10 +20,11 @@ class Computadora(Jugador):
             self.win_fila = [(0, 8), (1, 8), (2, 8), (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8)]
             self.opp = 1
 
+
 # BaseLine nos ayuda a ubicar todos los posibles movimientos proximos
 # y selecciona una de manera aleatoria.
 class BaseLine(Computadora):
-    def __init__(self,num):
+    def __init__(self, num):
         super(BaseLine, self).__init__(num)
 
     def finalMove(self, estado):
@@ -30,18 +32,19 @@ class BaseLine(Computadora):
         choice = random.randint(0, len(moves))
         self.move(moves[choice].x, moves[choice].y, estado)
 
+
 # Heuristic nos ayuda a definir la minima distancia de caminos.
 # Se verifica la distancia del jugador y del oponente para
 # tomar una mejor decision en base a las menores distancias.
 class Heuristic(Computadora):
-    def __init__(self,num):
-        super(Heuristic,self).__init__(num)
+    def __init__(self, num):
+        super(Heuristic, self).__init__(num)
 
-    def finalMove(self,estado):
-        oponente=estado.jugador[self.oponente]
+    def finalMove(self, estado):
+        oponente = estado.jugador[self.oponente]
 
-        minOppPath = minPathLen(oponente.x,oponente.y,self.fila_oponente,estado)
-        minMovePath = minPathLen(self.x,self.y,self.fila_triunfo,estado)
+        minOppPath = minPathLen(oponente.x, oponente.y, self.fila_oponente, estado)
+        minMovePath = minPathLen(self.x, self.y, self.fila_triunfo, estado)
 
         min_diff = maxint
         minPath = maxint
@@ -76,7 +79,6 @@ class Minimax(Computadora):
 
         if move.move_type == "move":
             self.move(move.moveX, move.moveY, estado)
-
 
     def miniMax(self, node, depth, maximizingJugador):
         if depth == 0 or self.winningMove(node):
@@ -169,9 +171,9 @@ class Node():
 
 
 def minPathLen(x, y, win_fila, estado):
-	minPath = maxint
-	for end in win_fila:
-		path_len = busqueda.path((x, y), end, estado)
-		if  path_len< minPath:
-			minPath = path_len
-	return minPath
+    minPath = maxint
+    for end in win_fila:
+        path_len = busqueda.path((x, y), end, estado)
+        if path_len < minPath:
+            minPath = path_len
+    return minPath

@@ -1,7 +1,6 @@
 # By Viviana - Team Group()
 
-import copy 
-import random
+from busqueda import bfs
 
 class Jugador(object):
 
@@ -39,7 +38,7 @@ class Jugador(object):
                 self.winning_position = True
         else:
             raise ("Movimiento NO PERMITIDO")
-    
+
 
   #DEFINIMOS LAS REGLAS DEL JUEGO (MOVERSE SOLO UP, DOWN, LEFT, RIGHT)
     def legal_move(self, x, y, tablero):
@@ -48,7 +47,7 @@ class Jugador(object):
         # SI NO ESTA DENTRO DE LA MISMA FILA
         if (self.x == x and self.y == y):
             return False
-        
+
         if (not self.legal_jump(x,y,tablero) and (abs(self.y-y) > 1 or abs(self.x - x) > 1 or (abs(self.y-y) == 1 and abs(self.x - x) == 1))):
             return False
 
@@ -106,7 +105,7 @@ class Jugador(object):
 
     def legal_placement(self, tablero):
         return True
-    
+
     def path_exists(self, b): #, w):
         p1_path = False
         p2_path = False
@@ -163,7 +162,7 @@ class Jugador(object):
             for m in moves:
                 if opp.legal_move(m.x, m.y, estado):
                     result.append(m)
-        
+
         return result
 
 
@@ -176,8 +175,8 @@ class Tile:
     def print_tile(self):
         return "Lugar en la casilla: (%d, %d)" % (self.x, self.y)
 
-class Estado: 
-    
+class Estado:
+
     def __init__(self, computadora_count='0'):
         import computadora
         if  computadora_count == '1':
@@ -189,7 +188,7 @@ class Estado:
 
         self.tiles = [ [],[],[],[],[],[],[],[],[] ]
         self.current = 0
-        
+
         for i in range(0,8):
             for j in range(0,8):
                 self.tiles[i].append(Tile(i,j))
