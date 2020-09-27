@@ -32,7 +32,7 @@ class BaseLine(Computadora):
 
 # Heuristic nos ayuda a definir la minima distancia de caminos.
 # Se verifica la distancia del jugador y del oponente para
-# tomar una mejor decisión en base a las menores distancias.
+# tomar una mejor decision en base a las menores distancias.
 class Heuristic(Computadora):
     def __init__(self,num):
         super(Heuristic,self).__init__(num)
@@ -69,7 +69,7 @@ class Minimax(Computadora):
         possible_moves = self.possibleMoves(estado)
 
         for m in possible_moves:
-            node = Node(self.jugador_num, estado, "move", None, m.x, m.y)
+            node = Node(self.jugador_num, estado, "move", m.x, m.y)
             moves[node] = self.alphabeta(node, 0, minint, maxint, True)
 
         move = max(moves, key=moves.get)
