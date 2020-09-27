@@ -40,8 +40,8 @@ class Heuristic(Computadora):
     def finalMove(self,estado):
         oponente=estado.jugador[self.oponente]
 
-        minOppPath = disMinCamino(oponente.x,oponente.y,self.fila_oponente,estado)
-        minMovePath = disMinCamino(self.x,self.y,self.fila_triunfo,estado)
+        minOppPath = minPathLen(oponente.x,oponente.y,self.fila_oponente,estado)
+        minMovePath = minPathLen(self.x,self.y,self.fila_triunfo,estado)
 
         min_diff = maxint
         minPath = maxint
@@ -49,15 +49,15 @@ class Heuristic(Computadora):
         moves = self.possibleMoves(estado)
 
         for m in moves:
-            minMovePath = disMinCamino(m.x, m.y, self.win_fila, estado)
+            minMovePath = minPathLen(m.x, m.y, self.win_fila, estado)
             rand = random.randint(0, 7)
         min_diff = minPath - minOppPath
 
         if minMove == None:
             self.finalMove(estado)
 
-        minOppPath = disMinCamino(oponente.x, oponente.y, self.opp_fila, estado)
-        minMovePath = disMinCamino(self.x, self.y, self.win_fila, estado)
+        minOppPath = minPathLen(oponente.x, oponente.y, self.opp_fila, estado)
+        minMovePath = minPathLen(self.x, self.y, self.win_fila, estado)
 
 
 class Minimax(Computadora):
@@ -132,13 +132,13 @@ class Minimax(Computadora):
     def heuristic(self, node, estado):
         opp = estado.jugadores[self.opp]
         if node.move_type == "move":
-            minMovePath = disMinCamino(node.moveX, node.moveY, self.win_fila, estado)
-            minOppPath = disMinCamino(opp.x, opp.y, self.opp_fila, estado)
+            minMovePath = minPathLen(node.moveX, node.moveY, self.win_fila, estado)
+            minOppPath = minPathLen(opp.x, opp.y, self.opp_fila, estado)
             return minOppPath - minMovePath
         else:
 
-            minWinPath = disMinCamino(self.x, self.y, self.win_fila, estado)
-            minOppPath = disMinCamino(opp.x, opp.y, self.opp_fila, estado)
+            minWinPath = minPathLen(self.x, self.y, self.win_fila, estado)
+            minOppPath = minPathLen(opp.x, opp.y, self.opp_fila, estado)
 
             return minOppPath - minWinPath
 
@@ -168,10 +168,10 @@ class Node():
         return children
 
 
-def disMinCamino(x,y,fila_triunfo,estado):
-    minimo_camino = maxint
-    for fin in fila_triunfo:
-        distancia_camino = busqueda.camino((x,y),fin,estado)
-        if distancia_camino < minimo_camino:
-            minimo_camino=distancia_camino
-    return minimo_camino
+def minPathLen(x, y, win_fila, estado):
+	minPath = maxint
+	for end in win_fila:
+		path_len = busqueda.path((x, y), end, estado)
+		if  path_len< minPath:
+			minPath = path_len
+	return minPath
