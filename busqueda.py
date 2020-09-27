@@ -69,3 +69,76 @@ def make_path(origen, current):
 
 def blocked(x1, y1, x2, y2, tablero):
     return False
+
+
+def smallest(frontera, fScore):
+    smallest = frontera[0]
+    for node in frontera:
+        if fScore[node] < fScore[smallest]:
+            smallest = node
+    return smallest
+
+
+def heuristic(start, end):
+    return abs(start[1] - end[1])
+
+
+def bfs(start, end, tablero):
+    frontera = []
+    visitado = set()
+    frontera.append(start)
+    visitado.add(start)
+    while frontera != []:
+        parent = frontera.pop(0)
+        if (parent == end):
+            return True
+
+        children = get_successors(parent)
+        for child in children:
+            if not (child in visitado):
+                if not blocked(child[0], child[1], parent[0], parent[1], tablero):
+                    frontera.append(child)
+                    visitado.add(child)
+    return False
+
+
+def path(start, end, tablero):
+    frontera = []
+    visitado = set()
+    frontera.append(start)
+    visitado.add(start)
+    distancia = {}
+    distancia[start] = 0
+    while frontera != []:
+        parent = frontera.pop(0)
+        if (parent == end):
+            return distancia[end]
+
+        children = get_successors(parent)
+        for child in children:
+            if not (child in visitado):
+                if not blocked(child[0], child[1], parent[0], parent[1], tablero):
+                    frontera.append(child)
+                    distancia[child] = distancia[parent] + 1
+                    visitado.add(child)
+
+    return maxint
+
+
+def get_successors(parent):
+    children = set()
+    p0 = parent[0]
+    p1 = parent[1]
+    x1 = parent[0] - 1
+    x2 = parent[0] + 1
+    y1 = parent[1] - 1
+    y2 = parent[1] + 1
+    if (x1 >= 0):
+        children.add((x1, p1))
+    if (y1 >= 0):
+        children.add((p0, y1))
+    if (x2 <= 8):
+        children.add((x2, p1))
+    if (y2 <= 8):
+        children.add((p0, y2))
+    return children
