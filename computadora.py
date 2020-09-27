@@ -28,9 +28,9 @@ class BaseLine(Computadora):
         super(BaseLine, self).__init__(num)
 
     def finalMove(self, estado):
-        moves = self.possibleMoves(estado)
-        choice = random.randint(0, len(moves))
-        self.move(moves[choice].x, moves[choice].y, estado)
+        movimientos = self.possibleMoves(estado)
+        opcion = random.randint(0, len(movimientos))
+        self.move(movimientos[opcion].x, movimientos[opcion].y, estado)
 
 
 # Heuristic nos ayuda a definir la minima distancia de caminos.
@@ -49,9 +49,9 @@ class Heuristic(Computadora):
         min_diff = maxint
         minPath = maxint
         minMove = None
-        moves = self.possibleMoves(estado)
+        movimientos = self.possibleMoves(estado)
 
-        for m in moves:
+        for m in movimientos:
             minMovePath = minPathLen(m.x, m.y, self.win_fila, estado)
             rand = random.randint(0, 7)
         min_diff = minPath - minOppPath
@@ -68,14 +68,14 @@ class Minimax(Computadora):
         super(Minimax, self).__init__(num)
 
     def finalMove(self, estado):
-        moves = {}
-        possible_moves = self.possibleMoves(estado)
+        movimientos = {}
+        possible_movimientos = self.possibleMoves(estado)
 
-        for m in possible_moves:
+        for m in possible_movimientos:
             node = Node(self.jugador_num, estado, "move", m.x, m.y)
-            moves[node] = self.alphabeta(node, 0, minint, maxint, True)
+            movimientos[node] = self.alphabeta(node, 0, minint, maxint, True)
 
-        move = max(moves, key=moves.get)
+        move = max(movimientos, key=movimientos.get)
 
         if move.move_type == "move":
             self.move(move.moveX, move.moveY, estado)
@@ -162,9 +162,9 @@ class Node():
 
     def children(self):
         children = []
-        opponent_possible_moves = self.estado.jugadores[self.opp_num].possibleMoves(self.estado, True)
+        opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMoves(self.estado, True)
 
-        for m in opponent_possible_moves:
+        for m in opponent_possible_movimientos:
             node = Node(self.opp_num, self.estado, "move", None, m.x, m.y)
             children.append(node)
         return children

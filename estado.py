@@ -122,44 +122,44 @@ class Jugador(object):
         return (p1_path and p2_path)
 
     def possibleMoves(self, estado, opponent=False):
-        moves = []
+        movimientos = []
         if not opponent:
-            moves.append(Tile(self.x, self.y-1))
-            moves.append(Tile(self.x, self.y+1))
-            moves.append(Tile(self.x+1, self.y))
-            moves.append(Tile(self.x-1, self.y))
+            movimientos.append(Tile(self.x, self.y-1))
+            movimientos.append(Tile(self.x, self.y+1))
+            movimientos.append(Tile(self.x+1, self.y))
+            movimientos.append(Tile(self.x-1, self.y))
 
-            moves.append(Tile(self.x, self.y-2))
-            moves.append(Tile(self.x, self.y+2))
-            moves.append(Tile(self.x-2, self.y))
-            moves.append(Tile(self.x+2, self.y))
-            moves.append(Tile(self.x-1, self.y-1))
-            moves.append(Tile(self.x+1, self.y+1))
-            moves.append(Tile(self.x+1, self.y-1))
-            moves.append(Tile(self.x-1, self.y+1))
+            movimientos.append(Tile(self.x, self.y-2))
+            movimientos.append(Tile(self.x, self.y+2))
+            movimientos.append(Tile(self.x-2, self.y))
+            movimientos.append(Tile(self.x+2, self.y))
+            movimientos.append(Tile(self.x-1, self.y-1))
+            movimientos.append(Tile(self.x+1, self.y+1))
+            movimientos.append(Tile(self.x+1, self.y-1))
+            movimientos.append(Tile(self.x-1, self.y+1))
 
             result = []
-            for m in moves:
+            for m in movimientos:
                 if self.legal_move(m.x, m.y, estado):
                     result.append(m)
         else:
             opp = estado.jugadores[self.opp]
-            moves.append(Tile(opp.x, opp.y-1))
-            moves.append(Tile(opp.x, opp.y+1))
-            moves.append(Tile(opp.x+1, opp.y))
-            moves.append(Tile(opp.x-1, opp.y))
+            movimientos.append(Tile(opp.x, opp.y-1))
+            movimientos.append(Tile(opp.x, opp.y+1))
+            movimientos.append(Tile(opp.x+1, opp.y))
+            movimientos.append(Tile(opp.x-1, opp.y))
 
-            moves.append(Tile(opp.x, opp.y-2))
-            moves.append(Tile(opp.x, opp.y+2))
-            moves.append(Tile(opp.x-2, opp.y))
-            moves.append(Tile(opp.x+2, opp.y))
-            moves.append(Tile(opp.x-1, opp.y-1))
-            moves.append(Tile(opp.x+1, opp.y+1))
-            moves.append(Tile(opp.x+1, opp.y-1))
-            moves.append(Tile(opp.x-1, opp.y+1))
+            movimientos.append(Tile(opp.x, opp.y-2))
+            movimientos.append(Tile(opp.x, opp.y+2))
+            movimientos.append(Tile(opp.x-2, opp.y))
+            movimientos.append(Tile(opp.x+2, opp.y))
+            movimientos.append(Tile(opp.x-1, opp.y-1))
+            movimientos.append(Tile(opp.x+1, opp.y+1))
+            movimientos.append(Tile(opp.x+1, opp.y-1))
+            movimientos.append(Tile(opp.x-1, opp.y+1))
 
             result = []
-            for m in moves:
+            for m in movimientos:
                 if opp.legal_move(m.x, m.y, estado):
                     result.append(m)
 
