@@ -4,13 +4,13 @@ from sys import maxint
 
 
 def starLength(start, end, estado):
-    path = star(start, end, estado)
-    return len(path)
+    camino = star(start, end, estado)
+    return len(camino)
 
 
-def pathExists(start, end, estado):
-    path = star(start, end, estado)
-    if path == []:
+def caminoExists(start, end, estado):
+    camino = star(start, end, estado)
+    if camino == []:
         return False
     return True
 
@@ -38,7 +38,7 @@ def star(start, end, estado):
     while len(frontera) != 0:
         actual = smallest(frontera, fScore)
         if actual == end:
-            return make_path(origen, actual)
+            return make_camino(origen, actual)
 
         frontera.remove(actual)
         visitado.add(actual)
@@ -59,12 +59,12 @@ def star(start, end, estado):
     return []
 
 
-def make_path(origen, actual):
-    tot_path = [actual]
+def make_camino(origen, actual):
+    tot_camino = [actual]
     while actual in origen.keys():
         actual = origen[actual]
-        tot_path.append(actual)
-    return tot_path
+        tot_camino.append(actual)
+    return tot_camino
 
 
 def bloqueado(x1, y1, x2, y2, tablero):
@@ -102,7 +102,7 @@ def bfs(start, end, tablero):
     return False
 
 
-def path(start, end, tablero):
+def camino(start, end, tablero):
     frontera = []
     visitado = set()
     frontera.append(start)

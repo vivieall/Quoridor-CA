@@ -172,7 +172,7 @@ class Node():
 def minCaminoLen(x, y, win_fila, estado):
     minCamino = maxint
     for end in win_fila:
-        path_len = busqueda.path((x, y), end, estado)
-        if path_len < minCamino:
-            minCamino = path_len
+        camino_len = busqueda.camino((x, y), end, estado)
+        if camino_len < minCamino:
+            minCamino = camino_len
     return minCamino

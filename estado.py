@@ -73,8 +73,8 @@ class Jugador(object):
         oppx = b.jugadores[opp_num].x
         oppy = b.jugadores[opp_num].y
 
-        if (self.adjacent(self.x,self.y,oppx,oppy) and self.adjacent(oppx,oppy,x,y) and (not self.blocked(oppx,oppy,x,y,b))):
-            if (not self.blocked(self.x,self.y,oppx,oppy,b)):
+        if (self.adjacent(self.x,self.y,oppx,oppy) and self.adjacent(oppx,oppy,x,y) and (not self.bloqueado(oppx,oppy,x,y,b))):
+            if (not self.bloqueado(self.x,self.y,oppx,oppy,b)):
                 logicalx = self.x
                 logicaly = self.y
                 if self.x < oppx:
@@ -87,14 +87,14 @@ class Jugador(object):
                 elif self.y > oppy:
                     logicaly = oppy - 1
 
-                if self.blocked(oppx, oppy,logicalx,logicaly,b) or (logicaly < 0) or (logicaly > 8) or (logicalx < 0) or (logicalx > 8):
+                if self.bloqueado(oppx, oppy,logicalx,logicaly,b) or (logicaly < 0) or (logicaly > 8) or (logicalx < 0) or (logicalx > 8):
                     return True
                 if x == logicalx and y == logicaly:
                     return True
 
         return False
 
-    def blocked(self, x1, y1, x2, y2, tablero):
+    def bloqueado(self, x1, y1, x2, y2, tablero):
         return False
 
     def adjacent(self,x1,y1,x2,y2):
@@ -105,20 +105,20 @@ class Jugador(object):
     def legal_placement(self, tablero):
         return True
 
-    def path_exists(self, b): #, w):
-        p1_path = False
-        p2_path = False
+    def camino_exists(self, b): #, w):
+        p1_camino = False
+        p2_camino = False
         win_fila1 = [(0,8),(1,8),(2,8),(3,8),(4,8),(5,8),(6,8),(7,8),(8,8)]
         win_fila2 = [(0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0),(8,0)]
 
         for casilla in win_fila1:
             if bfs((b.jugadores[0].x,b.jugadores[0].y), casilla, b):
-                p1_path = True
+                p1_camino = True
         for casilla in win_fila2:
             if bfs((b.jugadores[1].x,b.jugadores[1].y), casilla, b):
-                p2_path = True
+                p2_camino = True
 
-        return (p1_path and p2_path)
+        return (p1_camino and p2_camino)
 
     def possibleMovimientos(self, estado, oponente=False):
         movimientos = []

@@ -1,14 +1,12 @@
 # By Viviana - Team Group()
 
-from estado import *
-from sys import argv
-
 import Tkinter
 import math
 import time
-import threading
-import random
-import time
+from sys import argv
+
+from estado import *
+
 CASILLA_SIZE = 50
 JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
 CASILLA_PADDING = 10
