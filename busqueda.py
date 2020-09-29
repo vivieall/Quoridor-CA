@@ -36,38 +36,38 @@ def star(start, end, estado):
     fScore[start] = heuristica(start, end)
 
     while len(frontera) != 0:
-        current = smallest(frontera, fScore)
-        if current == end:
-            return make_path(origen, current)
+        actual = smallest(frontera, fScore)
+        if actual == end:
+            return make_path(origen, actual)
 
-        frontera.remove(current)
-        visitado.add(current)
+        frontera.remove(actual)
+        visitado.add(actual)
 
-        children = get_successors(current)
+        children = get_successors(actual)
         for child in children:
             if not (child in visitado):
-                if not blocked(child[0], child[1], current[0], current[1], estado):
+                if not bloqueado(child[0], child[1], actual[0], actual[1], estado):
                     frontera.append(child)
 
-            tent_gScore = gScore[current] + 1
+            tent_gScore = gScore[actual] + 1
             if tent_gScore >= gScore[child]:
                 continue
 
-            origen[child] = current
+            origen[child] = actual
             gScore[child] = tent_gScore
             fScore[child] = gScore[child] + heuristica(child, end)
     return []
 
 
-def make_path(origen, current):
-    tot_path = [current]
-    while current in origen.keys():
-        current = origen[current]
-        tot_path.append(current)
+def make_path(origen, actual):
+    tot_path = [actual]
+    while actual in origen.keys():
+        actual = origen[actual]
+        tot_path.append(actual)
     return tot_path
 
 
-def blocked(x1, y1, x2, y2, tablero):
+def bloqueado(x1, y1, x2, y2, tablero):
     return False
 
 
@@ -96,7 +96,7 @@ def bfs(start, end, tablero):
         children = get_successors(parent)
         for child in children:
             if not (child in visitado):
-                if not blocked(child[0], child[1], parent[0], parent[1], tablero):
+                if not bloqueado(child[0], child[1], parent[0], parent[1], tablero):
                     frontera.append(child)
                     visitado.add(child)
     return False
@@ -117,7 +117,7 @@ def path(start, end, tablero):
         children = get_successors(parent)
         for child in children:
             if not (child in visitado):
-                if not blocked(child[0], child[1], parent[0], parent[1], tablero):
+                if not bloqueado(child[0], child[1], parent[0], parent[1], tablero):
                     frontera.append(child)
                     distancia[child] = distancia[parent] + 1
                     visitado.add(child)

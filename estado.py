@@ -186,7 +186,7 @@ class Estado:
             self.jugadores = [Jugador(0), Jugador(1)]
 
         self.casillas = [ [],[],[],[],[],[],[],[],[] ]
-        self.current = 0
+        self.actual = 0
 
         for i in range(0,8):
             for j in range(0,8):
@@ -196,7 +196,7 @@ class Estado:
         print(self.casillas)
 
     def sigTurno(self):
-        if self.current == 0:
-            self.current = 1
+        if self.actual == 0:
+            self.actual = 1
         else:
-            self.current = 0
+            self.actual = 0

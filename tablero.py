@@ -16,13 +16,8 @@ BORDER = 10
 NUM_FILAS = input("INGRESE NUMERO DE CASILLAS: ")
 NUM_COLUMNAS = NUM_FILAS
 CONTROL_WIDTH = 100
-COLORS = {'bg': '#8d2014',
-					  'casilla': '#000000',
-					  'panel': '#333333',
-					  'text': '#ffffff',
-					  'jugadores': ['#d0a41e', '#ffffff'],
-					  'jugadores-sombras': ['#9999ff', '#ffbdbd']
-					  }
+COLORS = {'bg': '#8d2014', 'casilla': '#000000', 'panel': '#333333', 'text': '#ffffff',
+		'jugadores': ['#d0a41e', '#ffffff'], 'jugadores-sombras': ['#9999ff', '#ffbdbd']}
 
 ALIAS = raw_input("INGRESE SU ALIAS: ")
 COMPUTADORA = raw_input("INGRESE ALIAS DEL BOT: ")
@@ -41,7 +36,7 @@ class Tablero():
 		self.turn = 0
 		self.estado = None
 		self.computadora_count = '0'
-		self.current_element = None
+		self.actual_element = None
 		for _ in range(NUM_COLUMNAS):
 			self.casillas.append(range(NUM_FILAS))
 
@@ -65,7 +60,7 @@ class Tablero():
 
 		self.estado = Estado(computadora_count)
 		self.computadora_count = computadora_count
-		self.turn = self.estado.current
+		self.turn = self.estado.actual
 		self.dibujarJugadores()
 
 		self.root.mainloop()
@@ -177,7 +172,7 @@ class Tablero():
 
 	def sigTurno(self):
 		self.estado.sigTurno()
-		self.turn = self.estado.current
+		self.turn = self.estado.actual
 
 	def clearSombra(self):
 		if self.jugador_sombra != None:
