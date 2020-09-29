@@ -5,7 +5,6 @@ from busqueda import bfs
 class Jugador(object):
 
     def __init__(self, jugador_num):
-        self.walls = 10
         self.jugador_num = jugador_num
         self.winning_position = False
 

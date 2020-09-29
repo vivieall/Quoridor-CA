@@ -62,7 +62,7 @@ class Heuristica(Computadora):
         minOppCamino = minCaminoLen(oponente.x, oponente.y, self.opp_fila, estado)
         minMovimientoCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
 
-
+#Algoritmo de minimax
 class Minimax(Computadora):
     def __init__(self, num):
         super(Minimax, self).__init__(num)
@@ -138,13 +138,12 @@ class Minimax(Computadora):
             minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
             return minOppCamino - minMovimientoCamino
         else:
-
             minWinCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
             minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
 
             return minOppCamino - minWinCamino
 
-
+#Declarabdo el nodo
 class Node():
     def __init__(self, jugador_num, estado, movimiento_type, movimientoX=None, movimientoY=None):
         self.movimiento_type = movimiento_type
@@ -169,7 +168,7 @@ class Node():
             children.append(node)
         return children
 
-
+#Funcion que halla el caminito (el tamanio mas minimo)
 def minCaminoLen(x, y, win_fila, estado):
     minCamino = maxint
     for end in win_fila:

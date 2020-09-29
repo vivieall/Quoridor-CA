@@ -8,25 +8,25 @@ import math
 import time
 import threading
 import random
-import time 
-
+import time
 CASILLA_SIZE = 50
 JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
 CASILLA_PADDING = 10
 BORDER = 10
 NUM_FILAS = input("INGRESE NUMERO DE CASILLAS: ")
 NUM_COLUMNAS = NUM_FILAS
-CONTROL_WIDTH = 200
-COLORS = {'bg': '#FFFFFF',
-					  'casilla': '#d0d0d0',
+CONTROL_WIDTH = 100
+COLORS = {'bg': '#8d2014',
+					  'casilla': '#000000',
 					  'panel': '#333333',
-					  'button': '#555555',
-					  'text': '#000000',
-					  'jugadores': ['#00F', '#ff0000'],
+					  'text': '#ffffff',
+					  'jugadores': ['#d0a41e', '#ffffff'],
 					  'jugadores-sombras': ['#9999ff', '#ffbdbd']
 					  }
-JUGADORES = ['AZUL', 'ROJO']
 
+ALIAS = raw_input("INGRESE SU ALIAS: ")
+COMPUTADORA = raw_input("INGRESE ALIAS DEL BOT: ")
+JUGADORES = [ALIAS, COMPUTADORA]
 
 class Tablero():
 	def __init__(self):
@@ -34,11 +34,10 @@ class Tablero():
 		self.canvas = None
 		self.width = 0
 		self.height = 0
-		self.jugadores = [None, None]
+		self.jugadores = [ALIAS, COMPUTADORA]
 		self.casillas = []
 		self.movimiento = None
 		self.jugador_sombra = None
-		self.wall_sombra = None
 		self.turn = 0
 		self.estado = None
 		self.computadora_count = '0'
@@ -70,8 +69,6 @@ class Tablero():
 		self.dibujarJugadores()
 
 		self.root.mainloop()
-
-	
 
 	def dibujarCasillas(self):
 		for j in range(NUM_FILAS):
