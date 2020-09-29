@@ -10,22 +10,22 @@ import threading
 import random
 import time 
 
-TILE_SIZE = 50
-JUGADOR_SIZE = int(.8 * TILE_SIZE)
-TILE_PADDING = 10
+CASILLA_SIZE = 50
+JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
+CASILLA_PADDING = 10
 BORDER = 10
 NUM_FILAS = input("INGRESE NUMERO DE CASILLAS: ")
 NUM_COLUMNAS = NUM_FILAS
 CONTROL_WIDTH = 200
 COLORS = {'bg': '#FFFFFF',
-					  'tile': '#d0d0d0',
+					  'casilla': '#d0d0d0',
 					  'panel': '#333333',
 					  'button': '#555555',
 					  'text': '#000000',
 					  'jugadores': ['#00F', '#ff0000'],
 					  'jugadores-shadows': ['#9999ff', '#ffbdbd']
 					  }
-JUGADORS = ['AZUL', 'ROJO']
+JUGADORES = ['AZUL', 'ROJO']
 
 
 class Tablero():
@@ -35,21 +35,18 @@ class Tablero():
 		self.width = 0
 		self.height = 0
 		self.jugadores = [None, None]
-		self.tiles = []
+		self.casillas = []
 		self.move = None
 		self.jugador_shadow = None
 		self.wall_shadow = None
 		self.turn = 0
 		self.estado = None
-		self.photo = None
 		self.computadora_count = '0'
 		self.current_element = None
 		for _ in range(NUM_COLUMNAS):
-			self.tiles.append(range(NUM_FILAS))
+			self.casillas.append(range(NUM_FILAS))
 
-
-
-	def newGame(self, computadora_count):
+	def nuevoJuego(self, computadora_count):
 		if self.root:
 			self.root.destroy()
 
@@ -61,37 +58,37 @@ class Tablero():
 		self.root.bind("<Motion>", lambda e: self.handleMotion(e.x, e.y))
 		self.root.bind("<Button-1>", lambda e: self.handleClick(e.x, e.y))
 
-		self.height = (NUM_FILAS*TILE_SIZE) + (NUM_FILAS*TILE_PADDING) + (2*BORDER)
+		self.height = (NUM_FILAS*CASILLA_SIZE) + (NUM_FILAS*CASILLA_PADDING) + (2*BORDER)
 		self.width = self.height + CONTROL_WIDTH
 		self.canvas = Tkinter.Canvas(self.root, width=self.width, height=self.height, background=COLORS['bg'])
 		self.canvas.pack()
-		self.drawTiles()
+		self.dibujarCasillas()
 
 		self.estado = Estado(computadora_count)
 		self.computadora_count = computadora_count
 		self.turn = self.estado.current
-		self.drawJugadores()
+		self.dibujarJugadores()
 
 		self.root.mainloop()
 
 	
 
-	def drawTiles(self):
+	def dibujarCasillas(self):
 		for j in range(NUM_FILAS):
 			for i in range(NUM_COLUMNAS):
-				x = BORDER + TILE_PADDING/2 + i*(TILE_SIZE+TILE_PADDING)
-				y = BORDER + TILE_PADDING/2 + j*(TILE_SIZE+TILE_PADDING)
-				tile = self.canvas.create_rectangle(x,y, x+TILE_SIZE, y+TILE_SIZE, fill=COLORS['tile'])
-				self.tiles[j][i] = tile
+				x = BORDER + CASILLA_PADDING/2 + i*(CASILLA_SIZE+CASILLA_PADDING)
+				y = BORDER + CASILLA_PADDING/2 + j*(CASILLA_SIZE+CASILLA_PADDING)
+				casilla = self.canvas.create_rectangle(x,y, x+CASILLA_SIZE, y+CASILLA_SIZE, fill=COLORS['casilla'])
+				self.casillas[j][i] = casilla
 
-	def drawJugadores(self, shadow=False):
-		for k in range(len(JUGADORS)):
+	def dibujarJugadores(self, shadow=False):
+		for k in range(len(JUGADORES)):
 			jugador = self.estado.jugadores[k]
 			fila = jugador.x
 			columna = jugador.y
-			self.drawJugador(fila, columna, k, jugador, shadow)
+			self.dibujarJugador(fila, columna, k, jugador, shadow)
 
-	def drawJugador(self, fila, columna, num, jugador, shadow):
+	def dibujarJugador(self, fila, columna, num, jugador, shadow):
 		x, y = gridToCoords(fila,columna)
 		if x==None or y==None:
 			return
@@ -127,7 +124,7 @@ class Tablero():
 			return
 		if self.move == 'movePawn':
 			if self.estado.jugadores[self.turn].legal_move(i,j,self.estado):
-				self.drawJugador(i, j, self.turn, self.estado.jugadores[self.turn], True)
+				self.dibujarJugador(i, j, self.turn, self.estado.jugadores[self.turn], True)
 			elif self.jugador_shadow != None:
 				self.canvas.delete(self.jugador_shadow)
 				self.jugador_shadow == None
@@ -161,23 +158,23 @@ class Tablero():
 				time.sleep(.1)
 
 	def handleWinner(self):
-		winner = False
+		ganador = False
 		for p in self.estado.jugadores:
 			if p.winning_position:
 				x = self.width - CONTROL_WIDTH/2 - BORDER
 				y = self.height/2
-				i = "El jugador " + JUGADORS[p.jugador_num] + " es el GANADOR!"
+				i = "El jugador " + JUGADORES[p.jugador_num] + " es el GANADOR!"
 				self.canvas.create_text((x,y), text=i, justify='center', width=CONTROL_WIDTH, font=("Arial", 14, "bold"))
-				winner = True
+				ganador = True
 				break
-		if winner:
+		if ganador:
 			self.root.unbind("<Motion>")
 			self.root.unbind("<Button-1>")
-		return winner
+		return ganador
 
 	def refresh(self):
 		self.clearShadow()
-		self.drawJugadores()
+		self.dibujarJugadores()
 		self.root.update()
 		self.handleWinner()
 
@@ -193,9 +190,9 @@ class Tablero():
 
 def gridToCoords(i, j):
 	if (0<=i<=8) and (0<=j<=8):
-		x = BORDER + TILE_PADDING/2 + (i)*(TILE_SIZE+TILE_PADDING)
-		y = BORDER + TILE_PADDING/2 + (j)*(TILE_SIZE+TILE_PADDING)
-		return (x+(TILE_SIZE/2)), (y+(TILE_SIZE/2))
+		x = BORDER + CASILLA_PADDING/2 + (i)*(CASILLA_SIZE+CASILLA_PADDING)
+		y = BORDER + CASILLA_PADDING/2 + (j)*(CASILLA_SIZE+CASILLA_PADDING)
+		return (x+(CASILLA_SIZE/2)), (y+(CASILLA_SIZE/2))
 	else:
 		return None, None
 
@@ -203,8 +200,8 @@ def coordsToGrid(x, y):
 	x -= BORDER
 	y -= BORDER
 
-	i = int(math.floor(float(x)/(TILE_SIZE+TILE_PADDING)))
-	j = int(math.floor(float(y)/(TILE_SIZE+TILE_PADDING)))
+	i = int(math.floor(float(x)/(CASILLA_SIZE+CASILLA_PADDING)))
+	j = int(math.floor(float(y)/(CASILLA_SIZE+CASILLA_PADDING)))
 
 	if (0<=i<=8) and (0<=j<=8):
 		return i, j
@@ -216,8 +213,8 @@ if __name__ == '__main__':
 	tablero = Tablero()
 	if len(argv) == 2:
 		if argv[1] == '1':
-			tablero.newGame('1')
+			tablero.nuevoJuego('1')
 		elif argv[1] == '2':
-			tablero.newGame('2')
+			tablero.nuevoJuego('2')
 	else:
-		tablero.newGame('0')
+		tablero.nuevoJuego('0')

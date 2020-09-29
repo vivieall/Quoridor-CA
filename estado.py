@@ -21,10 +21,10 @@ class Jugador(object):
         for i in range(8):
             for j in range(8):
                 for k in ["horizontal", "vertical"]:
-                    top_l = Tile(i,j)
-                    top_r = Tile(i+1,j)
-                    bot_l = Tile(i,j+1)
-                    bot_r = Tile(i+1,j+1)
+                    top_l = Casilla(i,j)
+                    top_r = Casilla(i+1,j)
+                    bot_l = Casilla(i,j+1)
+                    bot_r = Casilla(i+1,j+1)
 
 #DEFINIMOS LOS MOVIMIENTOS EN LAS CASILLAS
     def move(self, x, y, tablero):
@@ -112,11 +112,11 @@ class Jugador(object):
         win_fila1 = [(0,8),(1,8),(2,8),(3,8),(4,8),(5,8),(6,8),(7,8),(8,8)]
         win_fila2 = [(0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0),(8,0)]
 
-        for tile in win_fila1:
-            if bfs((b.jugadores[0].x,b.jugadores[0].y), tile, b):
+        for casilla in win_fila1:
+            if bfs((b.jugadores[0].x,b.jugadores[0].y), casilla, b):
                 p1_path = True
-        for tile in win_fila2:
-            if bfs((b.jugadores[1].x,b.jugadores[1].y), tile, b):
+        for casilla in win_fila2:
+            if bfs((b.jugadores[1].x,b.jugadores[1].y), casilla, b):
                 p2_path = True
 
         return (p1_path and p2_path)
@@ -124,19 +124,19 @@ class Jugador(object):
     def possibleMoves(self, estado, opponent=False):
         movimientos = []
         if not opponent:
-            movimientos.append(Tile(self.x, self.y-1))
-            movimientos.append(Tile(self.x, self.y+1))
-            movimientos.append(Tile(self.x+1, self.y))
-            movimientos.append(Tile(self.x-1, self.y))
+            movimientos.append(Casilla(self.x, self.y-1))
+            movimientos.append(Casilla(self.x, self.y+1))
+            movimientos.append(Casilla(self.x+1, self.y))
+            movimientos.append(Casilla(self.x-1, self.y))
 
-            movimientos.append(Tile(self.x, self.y-2))
-            movimientos.append(Tile(self.x, self.y+2))
-            movimientos.append(Tile(self.x-2, self.y))
-            movimientos.append(Tile(self.x+2, self.y))
-            movimientos.append(Tile(self.x-1, self.y-1))
-            movimientos.append(Tile(self.x+1, self.y+1))
-            movimientos.append(Tile(self.x+1, self.y-1))
-            movimientos.append(Tile(self.x-1, self.y+1))
+            movimientos.append(Casilla(self.x, self.y-2))
+            movimientos.append(Casilla(self.x, self.y+2))
+            movimientos.append(Casilla(self.x-2, self.y))
+            movimientos.append(Casilla(self.x+2, self.y))
+            movimientos.append(Casilla(self.x-1, self.y-1))
+            movimientos.append(Casilla(self.x+1, self.y+1))
+            movimientos.append(Casilla(self.x+1, self.y-1))
+            movimientos.append(Casilla(self.x-1, self.y+1))
 
             result = []
             for m in movimientos:
@@ -144,19 +144,19 @@ class Jugador(object):
                     result.append(m)
         else:
             opp = estado.jugadores[self.opp]
-            movimientos.append(Tile(opp.x, opp.y-1))
-            movimientos.append(Tile(opp.x, opp.y+1))
-            movimientos.append(Tile(opp.x+1, opp.y))
-            movimientos.append(Tile(opp.x-1, opp.y))
+            movimientos.append(Casilla(opp.x, opp.y-1))
+            movimientos.append(Casilla(opp.x, opp.y+1))
+            movimientos.append(Casilla(opp.x+1, opp.y))
+            movimientos.append(Casilla(opp.x-1, opp.y))
 
-            movimientos.append(Tile(opp.x, opp.y-2))
-            movimientos.append(Tile(opp.x, opp.y+2))
-            movimientos.append(Tile(opp.x-2, opp.y))
-            movimientos.append(Tile(opp.x+2, opp.y))
-            movimientos.append(Tile(opp.x-1, opp.y-1))
-            movimientos.append(Tile(opp.x+1, opp.y+1))
-            movimientos.append(Tile(opp.x+1, opp.y-1))
-            movimientos.append(Tile(opp.x-1, opp.y+1))
+            movimientos.append(Casilla(opp.x, opp.y-2))
+            movimientos.append(Casilla(opp.x, opp.y+2))
+            movimientos.append(Casilla(opp.x-2, opp.y))
+            movimientos.append(Casilla(opp.x+2, opp.y))
+            movimientos.append(Casilla(opp.x-1, opp.y-1))
+            movimientos.append(Casilla(opp.x+1, opp.y+1))
+            movimientos.append(Casilla(opp.x+1, opp.y-1))
+            movimientos.append(Casilla(opp.x-1, opp.y+1))
 
             result = []
             for m in movimientos:
@@ -166,13 +166,13 @@ class Jugador(object):
         return result
 
 
-class Tile:
+class Casilla:
 
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
-    def print_tile(self):
+    def print_casilla(self):
         return "Lugar en la casilla: (%d, %d)" % (self.x, self.y)
 
 class Estado:
@@ -186,15 +186,15 @@ class Estado:
         else:
             self.jugadores = [Jugador(0), Jugador(1)]
 
-        self.tiles = [ [],[],[],[],[],[],[],[],[] ]
+        self.casillas = [ [],[],[],[],[],[],[],[],[] ]
         self.current = 0
 
         for i in range(0,8):
             for j in range(0,8):
-                self.tiles[i].append(Tile(i,j))
+                self.casillas[i].append(Casilla(i,j))
 
     def printTablero(self):
-        print self.tiles
+        print self.casillas
 
     def nextTurn(self):
         if self.current == 0:
