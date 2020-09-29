@@ -1,12 +1,12 @@
-# By Richard - Team Group()
-from estado import *
 import busqueda
 import random
 import copy
+
+from estado import *
 from sys import maxint
 
+#Definicion MIN & MAX
 minint = -maxint - 1
-
 
 class Computadora(Jugador):
     def __init__(self, num):
@@ -73,7 +73,7 @@ class Minimax(Computadora):
 
         for m in possible_movimientos:
             node = Node(self.jugador_num, estado, "movimiento", m.x, m.y)
-            movimientos[node] = self.alphabeta(node, 0, minint, maxint, True)
+            movimientos[node] = self.alfabeta(node, 0, minint, maxint, True)
 
         movimiento = max(movimientos, key=movimientos.get)
 
@@ -85,45 +85,47 @@ class Minimax(Computadora):
             return self.heuristica(node, node.estado)
 
         if maximizingJugador:
-            bestValue = minint
-            children = node.children(maximizingJugador)
-            for child in children:
-                v = self.miniMax(child, depth - 1, False)
-                bestValue = max(bestValue, v)
-            return bestValue
+            mejorPosicion = minint
+            hijos = node.hijos(maximizingJugador)
+            for hijo in hijos:
+                v = self.miniMax(hijo, depth - 1, False)
+                mejorPosicion = max(mejorPosicion, v)
+            return mejorPosicion
 
         else:
-            bestValue = maxint
-            children = node.children(maximizingJugador)
-            for child in children:
-                v = self.miniMax(child, depth - 1, True)
-                bestValue = min(bestValue, v)
-            return bestValue
+            mejorPosicion = maxint
+            hijos = node.hijos(maximizingJugador)
+            for hijo in hijos:
+                v = self.miniMax(hijo, depth - 1, True)
+                mejorPosicion = min(mejorPosicion, v)
+            return mejorPosicion
 
-    def alphabeta(self, node, depth, alpha, beta, maximizingJugador):
+    #Algoritmo que reduce el numero de nodos evaluados en un arbol
+    #SE HACE USO DEL ALGORITMO MINIMAX
+    def alfabeta(self, node, depth, alfa, beta, maximizingJugador):
         if depth == 0 or self.ganadorMovimiento(node):
             return self.heuristica(node, node.estado)
 
         if maximizingJugador:
-            bestValue = minint
-            children = node.children(maximizingJugador)
-            for child in children:
-                v = self.alphabeta(child, depth - 1, alpha, beta, False)
-                bestValue = max(bestValue, v)
-                alpha = max(alpha, bestValue)
-                if beta <= alpha:
+            mejorPosicion = minint
+            hijos = node.hijos(maximizingJugador)
+            for hijo in hijos:
+                v = self.alfabeta(hijo, depth - 1, alfa, beta, False)
+                mejorPosicion = max(mejorPosicion, v)
+                alfa = max(alfa, mejorPosicion)
+                if beta <= alfa:
                     break
-            return bestValue
+            return mejorPosicion
 
         else:
-            bestValue = maxint
-            children = node.children(maximizingJugador)
-            for child in children:
-                v = self.alphabeta(child, depth - 1, alpha, beta, True)
-                bestValue = min(bestValue, v)
-                if beta <= alpha:
+            mejorPosicion = maxint
+            hijos = node.hijos(maximizingJugador)
+            for hijo in hijos:
+                v = self.alfabeta(hijo, depth - 1, alfa, beta, True)
+                mejorPosicion = min(mejorPosicion, v)
+                if beta <= alfa:
                     break
-            return bestValue
+            return mejorPosicion
 
     def ganadorMovimiento(self, node):
         if node.movimiento_type == "movimiento":
@@ -159,14 +161,14 @@ class Node():
         self.estado = new_estado
         self.opp_num = new_estado.jugadores[self.jugador_num].opp
 
-    def children(self):
-        children = []
+    def hijos(self):
+        hijos = []
         opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMovimientos(self.estado, True)
 
         for m in opponent_possible_movimientos:
             node = Node(self.opp_num, self.estado, "movimiento", None, m.x, m.y)
-            children.append(node)
-        return children
+            hijos.append(node)
+        return hijos
 
 #Funcion que halla el caminito (el tamanio mas minimo)
 def minCaminoLen(x, y, win_fila, estado):

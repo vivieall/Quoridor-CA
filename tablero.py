@@ -31,7 +31,7 @@ class Tablero():
 		self.casillas = []
 		self.movimiento = None
 		self.jugador_sombra = None
-		self.turn = 0
+		self.turno = 0
 		self.estado = None
 		self.computadora_count = '0'
 		self.actual_element = None
@@ -45,7 +45,7 @@ class Tablero():
 		self.root = Tkinter.Tk()
 		self.root.title("Quoridor By Viviana, Angel & Richard")
 
-		self.root.bind("<Escape>", lambda e: self.handleQuit())
+		self.root.bind("<Escape>", lambda e: self.handleSalir())
 		self.root.bind("<Enter>", lambda e: self.setMovimiento("movimientoPawn")) # "m"
 		self.root.bind("<Motion>", lambda e: self.handleMotion(e.x, e.y))
 		self.root.bind("<Button-1>", lambda e: self.handleClick(e.x, e.y))
@@ -58,7 +58,7 @@ class Tablero():
 
 		self.estado = Estado(computadora_count)
 		self.computadora_count = computadora_count
-		self.turn = self.estado.actual
+		self.turno = self.estado.actual
 		self.dibujarJugadores()
 
 		self.root.mainloop()
@@ -102,27 +102,27 @@ class Tablero():
 		self.movimiento = movimiento
 		self.refresh()
 
-	def handleQuit(self):
+	def handleSalir(self):
 		self.root.destroy()
 
 	def handleMotion(self, x, y):
-		if self.computadora_count == '2' or (self.turn == 1 and self.computadora_count == '1'):
+		if self.computadora_count == '2' or (self.turno == 1 and self.computadora_count == '1'):
 				return
 
 		i, j = coordsToGrid(x,y)
 		if i == None or j == None:
 			return
 		if self.movimiento == 'movimientoPawn':
-			if self.estado.jugadores[self.turn].legal_movimiento(i,j,self.estado):
-				self.dibujarJugador(i, j, self.turn, self.estado.jugadores[self.turn], True)
+			if self.estado.jugadores[self.turno].legal_movimiento(i,j,self.estado):
+				self.dibujarJugador(i, j, self.turno, self.estado.jugadores[self.turno], True)
 			elif self.jugador_sombra != None:
 				self.canvas.delete(self.jugador_sombra)
 				self.jugador_sombra == None
 
 	def handleClick(self, x, y):
 		if (self.computadora_count == '2'):
-			while not self.estado.jugadores[0].winning_position and not self.estado.jugadores[1].winning_position:
-				self.estado.jugadores[self.turn].finalMovimiento(self.estado)
+			while not self.estado.jugadores[0].posicion_ganadora and not self.estado.jugadores[1].posicion_ganadora:
+				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
 				self.refresh()
 				time.sleep(.1)
@@ -133,16 +133,16 @@ class Tablero():
 				return
 
 			if self.movimiento == 'movimientoPawn':
-				if self.estado.jugadores[self.turn].legal_movimiento(i,j,self.estado):
-					self.estado.jugadores[self.turn].movimiento(i,j,self.estado)
+				if self.estado.jugadores[self.turno].legal_movimiento(i,j,self.estado):
+					self.estado.jugadores[self.turno].movimiento(i,j,self.estado)
 					self.sigTurno()
 					self.refresh()
 
 			if self.handleGanador():
 				return
 
-			if self.turn == 1 and self.computadora_count == '1':
-				self.estado.jugadores[self.turn].finalMovimiento(self.estado)
+			if self.turno == 1 and self.computadora_count == '1':
+				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
 				self.refresh()
 				time.sleep(.1)
@@ -150,7 +150,7 @@ class Tablero():
 	def handleGanador(self):
 		ganador = False
 		for p in self.estado.jugadores:
-			if p.winning_position:
+			if p.posicion_ganadora:
 				x = self.width - CONTROL_WIDTH/2 - BORDER
 				y = self.height/2
 				i = "El jugador " + JUGADORES[p.jugador_num] + " es el GANADOR!"
@@ -170,7 +170,7 @@ class Tablero():
 
 	def sigTurno(self):
 		self.estado.sigTurno()
-		self.turn = self.estado.actual
+		self.turno = self.estado.actual
 
 	def clearSombra(self):
 		if self.jugador_sombra != None:

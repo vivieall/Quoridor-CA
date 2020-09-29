@@ -1,20 +1,22 @@
-# By Angel - Team Group()
+
 import estado
 from sys import maxint
 
-
+#ESPACIO DE BUSQUEDA QUE DEFINE EL TAMANIO PARA DAR POS INICIAL Y FINAL
 def starLength(start, end, estado):
     camino = star(start, end, estado)
     return len(camino)
 
-
+#FUNCION QUE DEFINE SI EL CAMINO EXISTE (SI EL ARRAY HA SIDO DEFINIDO)
 def caminoExists(start, end, estado):
     camino = star(start, end, estado)
     if camino == []:
         return False
     return True
 
-
+#ESPACIO DE BUSQUEDA DEL TABLERO, DESDE POSICION INICIAL
+#HASTA LA ULTIMA POSICION, RECORRE DESDE LA RAIZ A TODOS LOS NODOS HIJOS / PADRE
+#SE LLAMA AL ALGORITMO HEURISTICA QUE TIENE DEFINIDO POS. INICIAL Y FINAl.
 def star(start, end, estado):
     visitado = set()
     frontera = list()
@@ -22,13 +24,13 @@ def star(start, end, estado):
     origen = {}
 
     gScore = {}
+
     for i in range(0, 9):
         for j in range(0, 9):
             gScore[(i, j)] = maxint
     gScore[start] = 0
+    fScore = {}
 
-    fScore = {}
-    fScore = {}
     for i in range(0, 9):
         for j in range(0, 9):
             fScore[(i, j)] = maxint
@@ -43,22 +45,22 @@ def star(start, end, estado):
         frontera.remove(actual)
         visitado.add(actual)
 
-        children = get_successors(actual)
-        for child in children:
-            if not (child in visitado):
-                if not bloqueado(child[0], child[1], actual[0], actual[1], estado):
-                    frontera.append(child)
+        hijos = get_sucesores(actual)
+        for hijo in hijos:
+            if not (hijo in visitado):
+                if not bloqueado(hijo[0], hijo[1], actual[0], actual[1], estado):
+                    frontera.append(hijo)
 
             tent_gScore = gScore[actual] + 1
-            if tent_gScore >= gScore[child]:
+            if tent_gScore >= gScore[hijo]:
                 continue
 
-            origen[child] = actual
-            gScore[child] = tent_gScore
-            fScore[child] = gScore[child] + heuristica(child, end)
+            origen[hijo] = actual
+            gScore[hijo] = tent_gScore
+            fScore[hijo] = gScore[hijo] + heuristica(hijo, end)
     return []
 
-
+#FUNCION QUE MARCA EL CAMINO QUE SE REALIZARA
 def make_camino(origen, actual):
     tot_camino = [actual]
     while actual in origen.keys():
@@ -66,11 +68,11 @@ def make_camino(origen, actual):
         tot_camino.append(actual)
     return tot_camino
 
-
+#NO HAY PAREDES ASI QUE EL CAMINO NO ESTA BLOQUEADO, RETORNA FALSO
 def bloqueado(x1, y1, x2, y2, tablero):
     return False
 
-
+#DA CON EL NODO MAS PEQUENIO (INICIAL)
 def smallest(frontera, fScore):
     smallest = frontera[0]
     for node in frontera:
@@ -78,30 +80,31 @@ def smallest(frontera, fScore):
             smallest = node
     return smallest
 
-
+#SABE SU INICIO Y FINAL EN SU RECORRIDO POR EL TABLERO
 def heuristica(start, end):
     return abs(start[1] - end[1])
 
-
+#BUSQUEDA DEL CAMINO MAS CORTO DEL INICIO AL FINAL
+#Se comienza en la raiz y se exploran todos los vecinos de este nodo hijo.
 def bfs(start, end, tablero):
     frontera = []
     visitado = set()
     frontera.append(start)
     visitado.add(start)
     while frontera != []:
-        parent = frontera.pop(0)
-        if (parent == end):
+        padre = frontera.pop(0)
+        if (padre == end):
             return True
 
-        children = get_successors(parent)
-        for child in children:
-            if not (child in visitado):
-                if not bloqueado(child[0], child[1], parent[0], parent[1], tablero):
-                    frontera.append(child)
-                    visitado.add(child)
+        hijos = get_sucesores(padre)
+        for hijo in hijos:
+            if not (hijo in visitado):
+                if not bloqueado(hijo[0], hijo[1], padre[0], padre[1], tablero):
+                    frontera.append(hijo)
+                    visitado.add(hijo)
     return False
 
-
+#FUNCION QUE DEFINE EL CAMINO DESDE LA POSICION INICIAL AL LLEGAR AL FINAL DEL TABLERO
 def camino(start, end, tablero):
     frontera = []
     visitado = set()
@@ -110,35 +113,34 @@ def camino(start, end, tablero):
     distancia = {}
     distancia[start] = 0
     while frontera != []:
-        parent = frontera.pop(0)
-        if (parent == end):
+        padre = frontera.pop(0)
+        if (padre == end):
             return distancia[end]
 
-        children = get_successors(parent)
-        for child in children:
-            if not (child in visitado):
-                if not bloqueado(child[0], child[1], parent[0], parent[1], tablero):
-                    frontera.append(child)
-                    distancia[child] = distancia[parent] + 1
-                    visitado.add(child)
-
+        hijos = get_sucesores(padre)
+        for hijo in hijos:
+            if not (hijo in visitado):
+                if not bloqueado(hijo[0], hijo[1], padre[0], padre[1], tablero):
+                    frontera.append(hijo)
+                    distancia[hijo] = distancia[padre] + 1
+                    visitado.add(hijo)
     return maxint
 
-
-def get_successors(parent):
-    children = set()
-    p0 = parent[0]
-    p1 = parent[1]
-    x1 = parent[0] - 1
-    x2 = parent[0] + 1
-    y1 = parent[1] - 1
-    y2 = parent[1] + 1
+#FUNCION QUE OBTIENE TODOS LOS NODOS HIJOS DEL PADRE QUE SE ENCUENTRA
+def get_sucesores(padre):
+    hijos = set()
+    p0 = padre[0]
+    p1 = padre[1]
+    x1 = padre[0] - 1
+    x2 = padre[0] + 1
+    y1 = padre[1] - 1
+    y2 = padre[1] + 1
     if (x1 >= 0):
-        children.add((x1, p1))
+        hijos.add((x1, p1))
     if (y1 >= 0):
-        children.add((p0, y1))
+        hijos.add((p0, y1))
     if (x2 <= 8):
-        children.add((x2, p1))
+        hijos.add((x2, p1))
     if (y2 <= 8):
-        children.add((p0, y2))
-    return children
+        hijos.add((p0, y2))
+    return hijos

@@ -1,12 +1,10 @@
-# By Viviana - Team Group()
-
 from busqueda import bfs
 
 class Jugador(object):
 
     def __init__(self, jugador_num):
         self.jugador_num = jugador_num
-        self.winning_position = False
+        self.posicion_ganadora = False
 
         if (jugador_num == 0):
             self.x = 4
@@ -32,9 +30,9 @@ class Jugador(object):
             self.x = x
             self.y = y
             if self.jugador_num == 0 and self.y == 8:
-                self.winning_position = True
+                self.posicion_ganadora = True
             elif self.jugador_num == 1 and self.y == 0:
-                self.winning_position = True
+                self.posicion_ganadora = True
         else:
             raise ("Movimiento NO PERMITIDO")
 
@@ -47,23 +45,22 @@ class Jugador(object):
         if (self.x == x and self.y == y):
             return False
 
-        if (not self.legal_jump(x,y,tablero) and (abs(self.y-y) > 1 or abs(self.x - x) > 1 or (abs(self.y-y) == 1 and abs(self.x - x) == 1))):
+        if (not self.legal_salto(x,y,tablero) and (abs(self.y-y) > 1 or abs(self.x - x) > 1 or (abs(self.y-y) == 1 and abs(self.x - x) == 1))):
             return False
 
-        if self.occupied(x,y,tablero):
+        if self.ocupado(x,y,tablero):
             return False
 
         return True
 
-    def occupied(self,x,y,b):
-
+    def ocupado(self,x,y,b):
         if (self.jugador_num == 0 and b.jugadores[1].x == x and b.jugadores[1].y == y):
             return True
         if (self.jugador_num == 1 and b.jugadores[0].x == x and b.jugadores[0].y == y):
             return True
         return False
 
-    def legal_jump(self,x,y,b):
+    def legal_salto(self,x,y,b):
 
         if self.jugador_num == 0:
             opp_num = 1
