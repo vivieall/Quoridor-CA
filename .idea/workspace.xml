@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="794a2bd6-efd5-4ad0-91f9-b17f8718655f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/busqueda.py" beforeDir="false" afterPath="$PROJECT_DIR$/busqueda.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/computadora.py" beforeDir="false" afterPath="$PROJECT_DIR$/computadora.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/estado.py" beforeDir="false" afterPath="$PROJECT_DIR$/estado.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tablero.py" beforeDir="false" afterPath="$PROJECT_DIR$/tablero.py" afterDir="false" />
     </list>
@@ -62,7 +65,7 @@
       <updated>1601203063523</updated>
       <workItem from="1601203064731" duration="569000" />
       <workItem from="1601203796136" duration="121000" />
-      <workItem from="1601401576063" duration="509000" />
+      <workItem from="1601401576063" duration="1344000" />
     </task>
     <servers />
   </component>
@@ -70,24 +73,24 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1238" height="205" key="GridCell.Tab.0.bottom" timestamp="1601203916519">
+    <state width="1238" height="205" key="GridCell.Tab.0.bottom" timestamp="1601403468906">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="205" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1601203916519" />
-    <state width="1238" height="205" key="GridCell.Tab.0.center" timestamp="1601203916518">
+    <state width="1238" height="205" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1601403468906" />
+    <state width="1238" height="205" key="GridCell.Tab.0.center" timestamp="1601403468905">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="205" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1601203916518" />
-    <state width="1238" height="205" key="GridCell.Tab.0.left" timestamp="1601203916517">
+    <state width="1238" height="205" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1601403468905" />
+    <state width="1238" height="205" key="GridCell.Tab.0.left" timestamp="1601403468904">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="205" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1601203916517" />
-    <state width="1238" height="205" key="GridCell.Tab.0.right" timestamp="1601203916518">
+    <state width="1238" height="205" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1601403468904" />
+    <state width="1238" height="205" key="GridCell.Tab.0.right" timestamp="1601403468905">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="205" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1601203916518" />
+    <state width="1238" height="205" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1601403468905" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Quoridor_CA$main.coverage" NAME="main Coverage Results" MODIFIED="1601402144604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Quoridor_CA$main.coverage" NAME="main Coverage Results" MODIFIED="1601403468887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

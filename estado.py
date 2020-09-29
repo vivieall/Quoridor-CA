@@ -27,9 +27,9 @@ class Jugador(object):
                     bot_r = Casilla(i+1,j+1)
 
 #DEFINIMOS LOS MOVIMIENTOS EN LAS CASILLAS
-    def move(self, x, y, tablero):
+    def movimiento(self, x, y, tablero):
 
-        if self.legal_move(x, y, tablero):
+        if self.legal_movimiento(x, y, tablero):
             self.x = x
             self.y = y
             if self.jugador_num == 0 and self.y == 8:
@@ -41,7 +41,7 @@ class Jugador(object):
 
 
   #DEFINIMOS LAS REGLAS DEL JUEGO (MOVERSE SOLO UP, DOWN, LEFT, RIGHT)
-    def legal_move(self, x, y, tablero):
+    def legal_movimiento(self, x, y, tablero):
         if (x<0 or x>8 or y<0 or y>8):
             return False
         # SI NO ESTA DENTRO DE LA MISMA FILA
@@ -121,7 +121,7 @@ class Jugador(object):
 
         return (p1_path and p2_path)
 
-    def possibleMoves(self, estado, opponent=False):
+    def possibleMovimientos(self, estado, opponent=False):
         movimientos = []
         if not opponent:
             movimientos.append(Casilla(self.x, self.y-1))
@@ -140,7 +140,7 @@ class Jugador(object):
 
             result = []
             for m in movimientos:
-                if self.legal_move(m.x, m.y, estado):
+                if self.legal_movimiento(m.x, m.y, estado):
                     result.append(m)
         else:
             opp = estado.jugadores[self.opp]
@@ -160,7 +160,7 @@ class Jugador(object):
 
             result = []
             for m in movimientos:
-                if opp.legal_move(m.x, m.y, estado):
+                if opp.legal_movimiento(m.x, m.y, estado):
                     result.append(m)
 
         return result
@@ -194,9 +194,9 @@ class Estado:
                 self.casillas[i].append(Casilla(i,j))
 
     def printTablero(self):
-        print self.casillas
+        print(self.casillas)
 
-    def nextTurn(self):
+    def sigTurno(self):
         if self.current == 0:
             self.current = 1
         else:

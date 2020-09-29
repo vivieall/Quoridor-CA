@@ -27,62 +27,62 @@ class BaseLine(Computadora):
     def __init__(self, num):
         super(BaseLine, self).__init__(num)
 
-    def finalMove(self, estado):
-        movimientos = self.possibleMoves(estado)
+    def finalMovimiento(self, estado):
+        movimientos = self.possibleMovimientos(estado)
         opcion = random.randint(0, len(movimientos))
-        self.move(movimientos[opcion].x, movimientos[opcion].y, estado)
+        self.movimiento(movimientos[opcion].x, movimientos[opcion].y, estado)
 
 
-# Heuristic nos ayuda a definir la minima distancia de caminos.
+# Heuristica nos ayuda a definir la minima distancia de caminos.
 # Se verifica la distancia del jugador y del oponente para
 # tomar una mejor decision en base a las menores distancias.
-class Heuristic(Computadora):
+class Heuristica(Computadora):
     def __init__(self, num):
-        super(Heuristic, self).__init__(num)
+        super(Heuristica, self).__init__(num)
 
-    def finalMove(self, estado):
+    def finalMovimiento(self, estado):
         oponente = estado.jugador[self.oponente]
 
-        minOppPath = minPathLen(oponente.x, oponente.y, self.fila_oponente, estado)
-        minMovePath = minPathLen(self.x, self.y, self.fila_triunfo, estado)
+        minOppCamino = minCaminoLen(oponente.x, oponente.y, self.fila_oponente, estado)
+        minMovimientoCamino = minCaminoLen(self.x, self.y, self.fila_triunfo, estado)
 
-        min_diff = maxint
-        minPath = maxint
-        minMove = None
-        movimientos = self.possibleMoves(estado)
+        min_diferencia = maxint
+        minCamino = maxint
+        minMovimiento = None
+        movimientos = self.possibleMovimientos(estado)
 
         for m in movimientos:
-            minMovePath = minPathLen(m.x, m.y, self.win_fila, estado)
+            minMovimientoCamino = minCaminoLen(m.x, m.y, self.win_fila, estado)
             rand = random.randint(0, 7)
-        min_diff = minPath - minOppPath
+        min_diferencia = minCamino - minOppCamino
 
-        if minMove == None:
-            self.finalMove(estado)
+        if minMovimiento == None:
+            self.finalMovimiento(estado)
 
-        minOppPath = minPathLen(oponente.x, oponente.y, self.opp_fila, estado)
-        minMovePath = minPathLen(self.x, self.y, self.win_fila, estado)
+        minOppCamino = minCaminoLen(oponente.x, oponente.y, self.opp_fila, estado)
+        minMovimientoCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
 
 
 class Minimax(Computadora):
     def __init__(self, num):
         super(Minimax, self).__init__(num)
 
-    def finalMove(self, estado):
+    def finalMovimiento(self, estado):
         movimientos = {}
-        possible_movimientos = self.possibleMoves(estado)
+        possible_movimientos = self.possibleMovimientos(estado)
 
         for m in possible_movimientos:
-            node = Node(self.jugador_num, estado, "move", m.x, m.y)
+            node = Node(self.jugador_num, estado, "movimiento", m.x, m.y)
             movimientos[node] = self.alphabeta(node, 0, minint, maxint, True)
 
-        move = max(movimientos, key=movimientos.get)
+        movimiento = max(movimientos, key=movimientos.get)
 
-        if move.move_type == "move":
-            self.move(move.moveX, move.moveY, estado)
+        if movimiento.movimiento_type == "movimiento":
+            self.movimiento(movimiento.movimientoX, movimiento.movimientoY, estado)
 
     def miniMax(self, node, depth, maximizingJugador):
-        if depth == 0 or self.winningMove(node):
-            return self.heuristic(node, node.estado)
+        if depth == 0 or self.ganadorMovimiento(node):
+            return self.heuristica(node, node.estado)
 
         if maximizingJugador:
             bestValue = minint
@@ -101,8 +101,8 @@ class Minimax(Computadora):
             return bestValue
 
     def alphabeta(self, node, depth, alpha, beta, maximizingJugador):
-        if depth == 0 or self.winningMove(node):
-            return self.heuristic(node, node.estado)
+        if depth == 0 or self.ganadorMovimiento(node):
+            return self.heuristica(node, node.estado)
 
         if maximizingJugador:
             bestValue = minint
@@ -125,55 +125,55 @@ class Minimax(Computadora):
                     break
             return bestValue
 
-    def winningMove(self, node):
-        if node.move_type == "move":
-            if (node.moveX, node.moveY) in self.win_fila:
+    def ganadorMovimiento(self, node):
+        if node.movimiento_type == "movimiento":
+            if (node.movimientoX, node.movimientoY) in self.win_fila:
                 return True
         return False
 
-    def heuristic(self, node, estado):
+    def heuristica(self, node, estado):
         opp = estado.jugadores[self.opp]
-        if node.move_type == "move":
-            minMovePath = minPathLen(node.moveX, node.moveY, self.win_fila, estado)
-            minOppPath = minPathLen(opp.x, opp.y, self.opp_fila, estado)
-            return minOppPath - minMovePath
+        if node.movimiento_type == "movimiento":
+            minMovimientoCamino = minCaminoLen(node.movimientoX, node.movimientoY, self.win_fila, estado)
+            minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
+            return minOppCamino - minMovimientoCamino
         else:
 
-            minWinPath = minPathLen(self.x, self.y, self.win_fila, estado)
-            minOppPath = minPathLen(opp.x, opp.y, self.opp_fila, estado)
+            minWinCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
+            minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
 
-            return minOppPath - minWinPath
+            return minOppCamino - minWinCamino
 
 
 class Node():
-    def __init__(self, jugador_num, estado, move_type, moveX=None, moveY=None):
-        self.move_type = move_type
+    def __init__(self, jugador_num, estado, movimiento_type, movimientoX=None, movimientoY=None):
+        self.movimiento_type = movimiento_type
 
-        self.moveX = moveX
-        self.moveY = moveY
+        self.movimientoX = movimientoX
+        self.movimientoY = movimientoY
         self.jugador_num = jugador_num
         new_estado = copy.deepcopy(estado)
-        if self.move_type == "move":
-            new_estado.jugadores[self.jugador_num].x = self.moveX
-            new_estado.jugadores[self.jugador_num].y = self.moveY
+        if self.movimiento_type == "movimiento":
+            new_estado.jugadores[self.jugador_num].x = self.movimientoX
+            new_estado.jugadores[self.jugador_num].y = self.movimientoY
 
         self.estado = new_estado
         self.opp_num = new_estado.jugadores[self.jugador_num].opp
 
     def children(self):
         children = []
-        opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMoves(self.estado, True)
+        opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMovimientos(self.estado, True)
 
         for m in opponent_possible_movimientos:
-            node = Node(self.opp_num, self.estado, "move", None, m.x, m.y)
+            node = Node(self.opp_num, self.estado, "movimiento", None, m.x, m.y)
             children.append(node)
         return children
 
 
-def minPathLen(x, y, win_fila, estado):
-    minPath = maxint
+def minCaminoLen(x, y, win_fila, estado):
+    minCamino = maxint
     for end in win_fila:
         path_len = busqueda.path((x, y), end, estado)
-        if path_len < minPath:
-            minPath = path_len
-    return minPath
+        if path_len < minCamino:
+            minCamino = path_len
+    return minCamino

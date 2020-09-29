@@ -33,7 +33,7 @@ def star(start, end, estado):
         for j in range(0, 9):
             fScore[(i, j)] = maxint
 
-    fScore[start] = heuristic(start, end)
+    fScore[start] = heuristica(start, end)
 
     while len(frontera) != 0:
         current = smallest(frontera, fScore)
@@ -55,7 +55,7 @@ def star(start, end, estado):
 
             origen[child] = current
             gScore[child] = tent_gScore
-            fScore[child] = gScore[child] + heuristic(child, end)
+            fScore[child] = gScore[child] + heuristica(child, end)
     return []
 
 
@@ -79,7 +79,7 @@ def smallest(frontera, fScore):
     return smallest
 
 
-def heuristic(start, end):
+def heuristica(start, end):
     return abs(start[1] - end[1])
 
 

@@ -23,7 +23,7 @@ COLORS = {'bg': '#FFFFFF',
 					  'button': '#555555',
 					  'text': '#000000',
 					  'jugadores': ['#00F', '#ff0000'],
-					  'jugadores-shadows': ['#9999ff', '#ffbdbd']
+					  'jugadores-sombras': ['#9999ff', '#ffbdbd']
 					  }
 JUGADORES = ['AZUL', 'ROJO']
 
@@ -36,9 +36,9 @@ class Tablero():
 		self.height = 0
 		self.jugadores = [None, None]
 		self.casillas = []
-		self.move = None
-		self.jugador_shadow = None
-		self.wall_shadow = None
+		self.movimiento = None
+		self.jugador_sombra = None
+		self.wall_sombra = None
 		self.turn = 0
 		self.estado = None
 		self.computadora_count = '0'
@@ -54,7 +54,7 @@ class Tablero():
 		self.root.title("Quoridor By Viviana, Angel & Richard")
 
 		self.root.bind("<Escape>", lambda e: self.handleQuit())
-		self.root.bind("<Enter>", lambda e: self.setMove("movePawn")) # "m"
+		self.root.bind("<Enter>", lambda e: self.setMovimiento("movimientoPawn")) # "m"
 		self.root.bind("<Motion>", lambda e: self.handleMotion(e.x, e.y))
 		self.root.bind("<Button-1>", lambda e: self.handleClick(e.x, e.y))
 
@@ -81,35 +81,35 @@ class Tablero():
 				casilla = self.canvas.create_rectangle(x,y, x+CASILLA_SIZE, y+CASILLA_SIZE, fill=COLORS['casilla'])
 				self.casillas[j][i] = casilla
 
-	def dibujarJugadores(self, shadow=False):
+	def dibujarJugadores(self, sombra=False):
 		for k in range(len(JUGADORES)):
 			jugador = self.estado.jugadores[k]
 			fila = jugador.x
 			columna = jugador.y
-			self.dibujarJugador(fila, columna, k, jugador, shadow)
+			self.dibujarJugador(fila, columna, k, jugador, sombra)
 
-	def dibujarJugador(self, fila, columna, num, jugador, shadow):
+	def dibujarJugador(self, fila, columna, num, jugador, sombra):
 		x, y = gridToCoords(fila,columna)
 		if x==None or y==None:
 			return
-		if not shadow and self.jugadores[num]:
+		if not sombra and self.jugadores[num]:
 			self.canvas.delete(self.jugadores[num])
 			self.jugadores[num] = None
-		elif shadow and self.jugador_shadow:
-			self.canvas.delete(self.jugador_shadow)
+		elif sombra and self.jugador_sombra:
+			self.canvas.delete(self.jugador_sombra)
 		color = COLORS['jugadores'][num]
-		if shadow:
-			color = COLORS['jugadores-shadows'][num]
+		if sombra:
+			color = COLORS['jugadores-sombras'][num]
 		radius = JUGADOR_SIZE/2
 		pawn = self.canvas.create_oval(x-radius, y-radius, x+radius, y+radius, fill=color, outline="")
-		if not shadow:
+		if not sombra:
 			self.jugadores[num] = pawn
 		else:
-			self.jugador_shadow = pawn
+			self.jugador_sombra = pawn
 
 
-	def setMove(self, move):
-		self.move = move
+	def setMovimiento(self, movimiento):
+		self.movimiento = movimiento
 		self.refresh()
 
 	def handleQuit(self):
@@ -122,18 +122,18 @@ class Tablero():
 		i, j = coordsToGrid(x,y)
 		if i == None or j == None:
 			return
-		if self.move == 'movePawn':
-			if self.estado.jugadores[self.turn].legal_move(i,j,self.estado):
+		if self.movimiento == 'movimientoPawn':
+			if self.estado.jugadores[self.turn].legal_movimiento(i,j,self.estado):
 				self.dibujarJugador(i, j, self.turn, self.estado.jugadores[self.turn], True)
-			elif self.jugador_shadow != None:
-				self.canvas.delete(self.jugador_shadow)
-				self.jugador_shadow == None
+			elif self.jugador_sombra != None:
+				self.canvas.delete(self.jugador_sombra)
+				self.jugador_sombra == None
 
 	def handleClick(self, x, y):
 		if (self.computadora_count == '2'):
 			while not self.estado.jugadores[0].winning_position and not self.estado.jugadores[1].winning_position:
-				self.estado.jugadores[self.turn].finalMove(self.estado)
-				self.nextTurn()
+				self.estado.jugadores[self.turn].finalMovimiento(self.estado)
+				self.sigTurno()
 				self.refresh()
 				time.sleep(.1)
 
@@ -142,22 +142,22 @@ class Tablero():
 			if i == None or j == None:
 				return
 
-			if self.move == 'movePawn':
-				if self.estado.jugadores[self.turn].legal_move(i,j,self.estado):
-					self.estado.jugadores[self.turn].move(i,j,self.estado)
-					self.nextTurn()
+			if self.movimiento == 'movimientoPawn':
+				if self.estado.jugadores[self.turn].legal_movimiento(i,j,self.estado):
+					self.estado.jugadores[self.turn].movimiento(i,j,self.estado)
+					self.sigTurno()
 					self.refresh()
 
-			if self.handleWinner():
+			if self.handleGanador():
 				return
 
 			if self.turn == 1 and self.computadora_count == '1':
-				self.estado.jugadores[self.turn].finalMove(self.estado)
-				self.nextTurn()
+				self.estado.jugadores[self.turn].finalMovimiento(self.estado)
+				self.sigTurno()
 				self.refresh()
 				time.sleep(.1)
 
-	def handleWinner(self):
+	def handleGanador(self):
 		ganador = False
 		for p in self.estado.jugadores:
 			if p.winning_position:
@@ -173,19 +173,19 @@ class Tablero():
 		return ganador
 
 	def refresh(self):
-		self.clearShadow()
+		self.clearSombra()
 		self.dibujarJugadores()
 		self.root.update()
-		self.handleWinner()
+		self.handleGanador()
 
-	def nextTurn(self):
-		self.estado.nextTurn()
+	def sigTurno(self):
+		self.estado.sigTurno()
 		self.turn = self.estado.current
 
-	def clearShadow(self):
-		if self.jugador_shadow != None:
-			self.canvas.delete(self.jugador_shadow)
-			self.jugador_shadow = None
+	def clearSombra(self):
+		if self.jugador_sombra != None:
+			self.canvas.delete(self.jugador_sombra)
+			self.jugador_sombra = None
 
 
 def gridToCoords(i, j):
