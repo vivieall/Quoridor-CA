@@ -121,9 +121,9 @@ class Jugador(object):
 
         return (p1_path and p2_path)
 
-    def possibleMovimientos(self, estado, opponent=False):
+    def possibleMovimientos(self, estado, oponente=False):
         movimientos = []
-        if not opponent:
+        if not oponente:
             movimientos.append(Casilla(self.x, self.y-1))
             movimientos.append(Casilla(self.x, self.y+1))
             movimientos.append(Casilla(self.x+1, self.y))
