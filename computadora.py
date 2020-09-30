@@ -28,7 +28,7 @@ class BaseLine(Computadora):
         super(BaseLine, self).__init__(num)
 
     def finalMovimiento(self, estado):
-        movimientos = self.possibleMovimientos(estado)
+        movimientos = self.posiblesMovimientos(estado)
         opcion = random.randint(0, len(movimientos))
         self.movimiento(movimientos[opcion].x, movimientos[opcion].y, estado)
 
@@ -49,7 +49,7 @@ class Heuristica(Computadora):
         min_diferencia = maxsize
         minCamino = maxsize
         minMovimiento = None
-        movimientos = self.possibleMovimientos(estado)
+        movimientos = self.posiblesMovimientos(estado)
 
         for m in movimientos:
             minMovimientoCamino = minCaminoLen(m.x, m.y, self.win_fila, estado)
@@ -69,7 +69,7 @@ class Minimax(Computadora):
 
     def finalMovimiento(self, estado):
         movimientos = {}
-        possible_movimientos = self.possibleMovimientos(estado)
+        possible_movimientos = self.posiblesMovimientos(estado)
 
         for m in possible_movimientos:
             node = Node(self.jugador_num, estado, "movimiento", m.x, m.y)
@@ -163,7 +163,7 @@ class Node():
 
     def hijos(self):
         hijos = []
-        opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMovimientos(self.estado, True)
+        opponent_possible_movimientos = self.estado.jugadores[self.opp_num].posiblesMovimientos(self.estado, True)
 
         for m in opponent_possible_movimientos:
             node = Node(self.opp_num, self.estado, "movimiento", None, m.x, m.y)

@@ -1,3 +1,6 @@
+import random
+from random import randint
+
 from busqueda import bfs
 
 class Jugador(object):
@@ -117,7 +120,7 @@ class Jugador(object):
 
         return (p1_camino and p2_camino)
 
-    def possibleMovimientos(self, estado, oponente=False):
+    def posiblesMovimientos(self, estado, oponente=False):
         movimientos = []
         if not oponente:
             movimientos.append(Casilla(self.x, self.y-1))
@@ -183,7 +186,7 @@ class Estado:
             self.jugadores = [Jugador(0), Jugador(1)]
 
         self.casillas = [ [],[],[],[],[],[],[],[],[] ]
-        self.actual = 0
+        self.actual = random.randint(0,1)
 
         for i in range(0,8):
             for j in range(0,8):
