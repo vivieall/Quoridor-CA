@@ -54,7 +54,7 @@ class Jugador(object):
         oppx = b.jugadores[opp_num].x
         oppy = b.jugadores[opp_num].y
 
-        if (self.adjacent(self.x,self.y,oppx,oppy) and self.adjacent(oppx,oppy,x,y) and (not self.bloqueado(oppx,oppy,x,y,b))):
+        if (self.adyacente(self.x,self.y,oppx,oppy) and self.adyacente(oppx,oppy,x,y) and (not self.bloqueado(oppx,oppy,x,y,b))):
             if (not self.bloqueado(self.x,self.y,oppx,oppy,b)):
                 logicalx = self.x
                 logicaly = self.y
@@ -72,7 +72,7 @@ class Jugador(object):
                     return True
         return False
 
-    def adjacent(self,x1,y1,x2,y2):
+    def adyacente(self,x1,y1,x2,y2):
         if ((abs(x1-x2) == 1 and abs(y1-y2) == 0) or (abs(y1-y2) == 1 and abs(x1-x2) == 0)):
             return True
         return False
@@ -93,7 +93,7 @@ class Jugador(object):
                 p2_camino = True
         return (p1_camino and p2_camino)
 
-    def possibleMovimientos(self, estado, oponente=False):
+    def posibleMovimientos(self, estado, oponente=False):
         movimientos = []
         if not oponente:
             movimientos.append(Casilla(self.x, self.y-1))
@@ -137,7 +137,7 @@ class Casilla:
         self.x = x
         self.y = y
 
-class Estado:
+class Reglas:
     def __init__(self, computadora_count='0'):
         import computadora
         if  computadora_count == '1':

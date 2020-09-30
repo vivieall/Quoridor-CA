@@ -2,24 +2,19 @@ import tkinter
 import math
 import time
 from sys import argv
-
 from pip._vendor.distlib.compat import raw_input
-
-from estado import *
+from reglas import *
 
 CASILLA_SIZE = 50
 JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
 CASILLA_PADDING = 10
 BORDER = 40
-NUM_FILAS = int(input("INGRESE NUMERO DE CASILLAS: "))
+NUM_FILAS = 9 #NUM_FILAS = int(input("INGRESE NUMERO DE CASILLAS: "))
 NUM_COLUMNAS = int(NUM_FILAS)
 CONTROL_WIDTH = 100
-COLORS = {'bg': '#8d2014', 'casilla': '#000000', 'panel': '#333333', 'text': '#ffffff',
-		'jugadores': ['#d0a41e', '#ffffff'], 'jugadores-sombras': ['#9999ff', '#ffbdbd']}
-
-ALIAS = raw_input("INGRESE SU ALIAS --> ")
-COMPUTADORA = raw_input("PONLE UN ALIAS A TU BOT :) --> ")
-JUGADORES = [ALIAS, COMPUTADORA]
+COLORS = {'bg': '#8d2014', 'casilla': '#000000', 'panel': '#333333', 'text': '#ffffff', 'jugadores': ['#d0a41e', '#ffffff'], 'jugadores-sombras': ['#9999ff', '#ffbdbd']}
+ALIAS = raw_input("*** JUEGO QUORIDOR **** || Ingrese su ALIAS --> ")
+JUGADORES = [ALIAS, 'MEGABOT']
 
 class Tablero():
 	def __init__(self):
@@ -27,12 +22,12 @@ class Tablero():
 		self.canvas = None
 		self.width = 0
 		self.height = 0
-		self.jugadores = [ALIAS, COMPUTADORA]
+		self.jugadores = [ALIAS, None]
 		self.casillas = []
 		self.movimiento = None
 		self.jugador_sombra = None
 		self.turno = 0
-		self.estado = None
+		self.reglas = None
 		self.computadora_count = '0'
 		self.actual_element = None
 		for _ in range(NUM_COLUMNAS):
@@ -41,7 +36,6 @@ class Tablero():
 	def nuevoJuego(self, computadora_count):
 		if self.root:
 			self.root.destroy()
-
 		self.root = tkinter.Tk()
 		self.root.title("Quoridor By Viviana, Angel & Richard")
 		self.root.bind("<Escape>", lambda e: self.handleSalir())
@@ -53,7 +47,7 @@ class Tablero():
 		self.canvas = tkinter.Canvas(self.root, width=self.width, height=self.height, background=COLORS['bg'])
 		self.canvas.pack()
 		self.dibujarCasillas()
-		self.estado = Estado(computadora_count)
+		self.estado = Reglas(computadora_count)
 		self.computadora_count = computadora_count
 		self.turno = self.estado.actual
 		self.dibujarJugadores()
@@ -76,8 +70,6 @@ class Tablero():
 
 	def dibujarJugador(self, fila, columna, num, jugador, sombra):
 		x, y = gridToCoords(fila,columna)
-		if x==None or y==None:
-			return
 		if not sombra and self.jugadores[num]:
 			self.canvas.delete(self.jugadores[num])
 			self.jugadores[num] = None
@@ -103,16 +95,12 @@ class Tablero():
 	def handleMotion(self, x, y):
 		if self.computadora_count == '2' or (self.turno == 1 and self.computadora_count == '1'):
 				return
-
 		i, j = coordsToGrid(x,y)
-		if i == None or j == None:
-			return
 		if self.movimiento == 'movimientoPawn':
 			if self.estado.jugadores[self.turno].legal_movimiento(i,j,self.estado):
 				self.dibujarJugador(i, j, self.turno, self.estado.jugadores[self.turno], True)
 			elif self.jugador_sombra != None:
 				self.canvas.delete(self.jugador_sombra)
-				self.jugador_sombra == None
 
 	def handleClick(self, x, y):
 		if (self.computadora_count == '2'):
@@ -123,8 +111,6 @@ class Tablero():
 				time.sleep(.5)
 		else:
 			i, j = coordsToGrid(x,y)
-			if i == None or j == None:
-				return
 			if self.movimiento == 'movimientoPawn':
 				if self.estado.jugadores[self.turno].legal_movimiento(i,j,self.estado):
 					self.estado.jugadores[self.turno].movimiento(i,j,self.estado)
