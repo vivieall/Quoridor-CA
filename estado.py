@@ -1,3 +1,5 @@
+import random
+from random import randint
 from busqueda import bfs
 
 class Jugador(object):
@@ -183,7 +185,8 @@ class Estado:
             self.jugadores = [Jugador(0), Jugador(1)]
 
         self.casillas = [ [],[],[],[],[],[],[],[],[] ]
-        self.actual = 0
+        self.actual = random.randint(0, 1)
+
 
         for i in range(0,8):
             for j in range(0,8):

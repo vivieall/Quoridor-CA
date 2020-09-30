@@ -20,11 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="794a2bd6-efd5-4ad0-91f9-b17f8718655f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Quoridor-CA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Quoridor-CA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/busqueda.py" beforeDir="false" afterPath="$PROJECT_DIR$/busqueda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/computadora.py" beforeDir="false" afterPath="$PROJECT_DIR$/computadora.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/estado.py" beforeDir="false" afterPath="$PROJECT_DIR$/estado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tablero.py" beforeDir="false" afterPath="$PROJECT_DIR$/tablero.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +96,7 @@
       <workItem from="1601203796136" duration="121000" />
       <workItem from="1601401576063" duration="7545000" />
       <workItem from="1601411186433" duration="4917000" />
+      <workItem from="1601432331545" duration="1353000" />
     </task>
     <servers />
   </component>
@@ -122,24 +123,24 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="378" y="154" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.800@0.0.1280.800" timestamp="1601412129779" />
-    <state width="1238" height="118" key="GridCell.Tab.0.bottom" timestamp="1601417026142">
+    <state width="734" height="118" key="GridCell.Tab.0.bottom" timestamp="1601433388552">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="118" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1601417026142" />
-    <state width="1238" height="118" key="GridCell.Tab.0.center" timestamp="1601417026141">
+    <state width="734" height="118" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1601433388552" />
+    <state width="734" height="118" key="GridCell.Tab.0.center" timestamp="1601433388552">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="118" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1601417026141" />
-    <state width="1238" height="118" key="GridCell.Tab.0.left" timestamp="1601417026141">
+    <state width="734" height="118" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1601433388552" />
+    <state width="734" height="118" key="GridCell.Tab.0.left" timestamp="1601433388551">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="118" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1601417026141" />
-    <state width="1238" height="118" key="GridCell.Tab.0.right" timestamp="1601417026141">
+    <state width="734" height="118" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1601433388551" />
+    <state width="734" height="118" key="GridCell.Tab.0.right" timestamp="1601433388552">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state width="1238" height="118" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1601417026141" />
+    <state width="734" height="118" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1601433388552" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Quoridor_CA$main.coverage" NAME="main Coverage Results" MODIFIED="1601416433880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Quoridor_CA$main.coverage" NAME="main Coverage Results" MODIFIED="1601433388537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
