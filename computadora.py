@@ -105,7 +105,7 @@ class Nodo():
         hijos = []
         oponente_posible_movimientos = self.estado.jugadores[self.opp_num].posibleMovimientos(self.estado, True)
         for m in oponente_posible_movimientos:
-            nodo = Nodo(self.opp_num, self.estado, "movimiento", None, m.x, m.y)
+            nodo = Nodo(self.opp_num, self.estado, "movimiento", m.x, m.y)
             hijos.append(nodo)
         return hijos
 
