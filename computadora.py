@@ -5,7 +5,6 @@ import copy
 from estado import *
 from sys import maxsize
 
-#Definicion MIN & MAX
 minint = -maxsize - 1
 
 class Computadora(Jugador):
@@ -19,16 +18,6 @@ class Computadora(Jugador):
             self.opp_fila = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0)]
             self.win_fila = [(0, 8), (1, 8), (2, 8), (3, 8), (4, 8), (5, 8), (6, 8), (7, 8), (8, 8)]
             self.opp = 1
-
-
-# BaseLine nos ayuda a ubicar todos los posibles movimientos proximos
-# y selecciona una de manera aleatoria.
-
-
-# Heuristica nos ayuda a definir la minima distancia de caminos.
-# Se verifica la distancia del jugador y del oponente para
-# tomar una mejor decision en base a las menores distancias.
-
 
 class Minimax(Computadora):
     def __init__(self, num):
@@ -49,7 +38,7 @@ class Minimax(Computadora):
 
     def miniMax(self, node, depth, maximizingJugador):
         if depth == 0 or self.ganadorMovimiento(node):
-            return self.heuristica(node, node.estado)
+            return self.sfs(node, node.estado)
 
         if maximizingJugador:
             mejorPosicion = minint
@@ -58,7 +47,6 @@ class Minimax(Computadora):
                 v = self.miniMax(hijo, depth - 1, False)
                 mejorPosicion = max(mejorPosicion, v)
             return mejorPosicion
-
         else:
             mejorPosicion = maxsize
             hijos = node.hijos(maximizingJugador)
@@ -71,8 +59,7 @@ class Minimax(Computadora):
     #SE HACE USO DEL ALGORITMO MINIMAX
     def alfabeta(self, node, depth, alfa, beta, maximizingJugador):
         if depth == 0 or self.ganadorMovimiento(node):
-            return self.heuristica(node, node.estado)
-
+            return self.sfs(node, node.estado)
         if maximizingJugador:
             mejorPosicion = minint
             hijos = node.hijos(maximizingJugador)
@@ -83,7 +70,6 @@ class Minimax(Computadora):
                 if beta <= alfa:
                     break
             return mejorPosicion
-
         else:
             mejorPosicion = maxsize
             hijos = node.hijos(maximizingJugador)
@@ -100,7 +86,7 @@ class Minimax(Computadora):
                 return True
         return False
 
-    def heuristica(self, node, estado):
+    def sfs(self, node, estado):
         opp = estado.jugadores[self.opp]
         if node.movimiento_type == "movimiento":
             minMovimientoCamino = minCaminoLen(node.movimientoX, node.movimientoY, self.win_fila, estado)
@@ -109,10 +95,9 @@ class Minimax(Computadora):
         else:
             minWinCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
             minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
-
             return minOppCamino - minWinCamino
 
-#Declarabdo el nodo
+#Declarando el nodo
 class Node():
     def __init__(self, jugador_num, estado, movimiento_type, movimientoX=None, movimientoY=None):
         self.movimiento_type = movimiento_type
@@ -131,7 +116,6 @@ class Node():
     def hijos(self):
         hijos = []
         opponent_possible_movimientos = self.estado.jugadores[self.opp_num].possibleMovimientos(self.estado, True)
-
         for m in opponent_possible_movimientos:
             node = Node(self.opp_num, self.estado, "movimiento", None, m.x, m.y)
             hijos.append(node)

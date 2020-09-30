@@ -44,23 +44,19 @@ class Tablero():
 
 		self.root = tkinter.Tk()
 		self.root.title("Quoridor By Viviana, Angel & Richard")
-
 		self.root.bind("<Escape>", lambda e: self.handleSalir())
 		self.root.bind("<Enter>", lambda e: self.setMovimiento("movimientoPawn")) # "m"
 		self.root.bind("<Motion>", lambda e: self.handleMotion(e.x, e.y))
 		self.root.bind("<Button-1>", lambda e: self.handleClick(e.x, e.y))
-
 		self.height = (NUM_FILAS*CASILLA_SIZE) + (NUM_FILAS*CASILLA_PADDING) + (2*BORDER)
 		self.width = self.height + CONTROL_WIDTH
 		self.canvas = tkinter.Canvas(self.root, width=self.width, height=self.height, background=COLORS['bg'])
 		self.canvas.pack()
 		self.dibujarCasillas()
-
 		self.estado = Estado(computadora_count)
 		self.computadora_count = computadora_count
 		self.turno = self.estado.actual
 		self.dibujarJugadores()
-
 		self.root.mainloop()
 
 	def dibujarCasillas(self):
@@ -97,7 +93,6 @@ class Tablero():
 		else:
 			self.jugador_sombra = pawn
 
-
 	def setMovimiento(self, movimiento):
 		self.movimiento = movimiento
 		self.refresh()
@@ -126,21 +121,17 @@ class Tablero():
 				self.sigTurno()
 				self.refresh()
 				time.sleep(.5)
-
 		else:
 			i, j = coordsToGrid(x,y)
 			if i == None or j == None:
 				return
-
 			if self.movimiento == 'movimientoPawn':
 				if self.estado.jugadores[self.turno].legal_movimiento(i,j,self.estado):
 					self.estado.jugadores[self.turno].movimiento(i,j,self.estado)
 					self.sigTurno()
 					self.refresh()
-
 			if self.handleGanador():
 				return
-
 			if self.turno == 1 and self.computadora_count == '1':
 				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
@@ -189,15 +180,12 @@ def gridToCoords(i, j):
 def coordsToGrid(x, y):
 	x -= BORDER
 	y -= BORDER
-
 	i = int(math.floor(float(x)/(CASILLA_SIZE+CASILLA_PADDING)))
 	j = int(math.floor(float(y)/(CASILLA_SIZE+CASILLA_PADDING)))
-
 	if (0<=i<=8) and (0<=j<=8):
 		return i, j
 	else:
 		return None, None
-
 
 if __name__ == '__main__':
 	tablero = Tablero()
