@@ -1,7 +1,5 @@
 import busqueda
-import random
 import copy
-
 from estado import *
 from sys import maxsize
 
@@ -26,20 +24,16 @@ class Minimax(Computadora):
     def finalMovimiento(self, estado):
         movimientos = {}
         possible_movimientos = self.possibleMovimientos(estado)
-
         for m in possible_movimientos:
             node = Node(self.jugador_num, estado, "movimiento", m.x, m.y)
             movimientos[node] = self.alfabeta(node, 0, minint, maxsize, True)
-
         movimiento = max(movimientos, key=movimientos.get)
-
         if movimiento.movimiento_type == "movimiento":
             self.movimiento(movimiento.movimientoX, movimiento.movimientoY, estado)
 
     def miniMax(self, node, depth, maximizingJugador):
         if depth == 0 or self.ganadorMovimiento(node):
             return self.sfs(node, node.estado)
-
         if maximizingJugador:
             mejorPosicion = minint
             hijos = node.hijos(maximizingJugador)
@@ -97,7 +91,6 @@ class Minimax(Computadora):
 class Node():
     def __init__(self, jugador_num, estado, movimiento_type, movimientoX=None, movimientoY=None):
         self.movimiento_type = movimiento_type
-
         self.movimientoX = movimientoX
         self.movimientoY = movimientoY
         self.jugador_num = jugador_num
@@ -105,7 +98,6 @@ class Node():
         if self.movimiento_type == "movimiento":
             new_estado.jugadores[self.jugador_num].x = self.movimientoX
             new_estado.jugadores[self.jugador_num].y = self.movimientoY
-
         self.estado = new_estado
         self.opp_num = new_estado.jugadores[self.jugador_num].opp
 
