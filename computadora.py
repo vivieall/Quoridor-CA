@@ -26,7 +26,7 @@ class Minimax(Computadora):
         posible_movimientos = self.posibleMovimientos(estado)
         for m in posible_movimientos:
             nodo = Nodo(self.jugador_num, estado, "movimiento", m.x, m.y)
-            movimientos[nodo] = self.alfabeta(nodo, 0, minint, maxsize, True)
+            movimientos[nodo] = self.minimaxalgoritmo(nodo, 0, minint, maxsize, True)
         movimiento = max(movimientos, key=movimientos.get)
         if movimiento.movimiento_type == "movimiento":
             self.movimiento(movimiento.movimientoX, movimiento.movimientoY, estado)
@@ -50,27 +50,26 @@ class Minimax(Computadora):
             return mejorPosicion
 
     #Algoritmo que reduce el numero de nodos evaluados en un arbol
-    #SE HACE USO DEL ALGORITMO MINIMAX
-    def alfabeta(self, nodo, profundidad, alfa, beta, maximizeJugador):
+    def minimaxalgoritmo(self, nodo, profundidad, maximo, minimo, maximizeJugador):
         if profundidad == 0 or self.ganadorMovimiento(nodo):
             return self.sfs(nodo, nodo.estado)
         if maximizeJugador:
             mejorPosicion = minint
             hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.alfabeta(hijo, profundidad - 1, alfa, beta, False)
+                v = self.minimaxalgoritmo(hijo, profundidad - 1, maximo, minimo, False)
                 mejorPosicion = max(mejorPosicion, v)
-                alfa = max(alfa, mejorPosicion)
-                if beta <= alfa:
+                maximo = max(maximo, mejorPosicion)
+                if minimo <= maximo:
                     break
             return mejorPosicion
         else:
             mejorPosicion = maxsize
             hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.alfabeta(hijo, profundidad - 1, alfa, beta, True)
+                v = self.minimaxalgoritmo(hijo, profundidad - 1, maximo, minimo, True)
                 mejorPosicion = min(mejorPosicion, v)
-                if beta <= alfa:
+                if minimo <= maximo:
                     break
             return mejorPosicion
 
