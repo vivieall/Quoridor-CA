@@ -41,28 +41,10 @@ class Heuristica(Computadora):
         super(Heuristica, self).__init__(num)
 
     def finalMovimiento(self, estado):
-        oponente = estado.jugador[self.oponente]
-
-        minOppCamino = minCaminoLen(oponente.x, oponente.y, self.fila_oponente, estado)
-        minMovimientoCamino = minCaminoLen(self.x, self.y, self.fila_triunfo, estado)
-
-        min_diferencia = maxsize
-        minCamino = maxsize
         minMovimiento = None
-        movimientos = self.possibleMovimientos(estado)
-
-        for m in movimientos:
-            minMovimientoCamino = minCaminoLen(m.x, m.y, self.win_fila, estado)
-            rand = random.randint(0, 7)
-        min_diferencia = minCamino - minOppCamino
-
         if minMovimiento == None:
             self.finalMovimiento(estado)
 
-        minOppCamino = minCaminoLen(oponente.x, oponente.y, self.opp_fila, estado)
-        minMovimientoCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
-
-#Algoritmo de minimax
 class Minimax(Computadora):
     def __init__(self, num):
         super(Minimax, self).__init__(num)

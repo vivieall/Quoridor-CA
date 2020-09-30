@@ -1,5 +1,3 @@
-# By Viviana - Team Group()
-
 import tkinter
 import math
 import time
@@ -19,8 +17,8 @@ CONTROL_WIDTH = 100
 COLORS = {'bg': '#8d2014', 'casilla': '#000000', 'panel': '#333333', 'text': '#ffffff',
 		'jugadores': ['#d0a41e', '#ffffff'], 'jugadores-sombras': ['#9999ff', '#ffbdbd']}
 
-ALIAS = raw_input("INGRESE SU ALIAS: ")
-COMPUTADORA = raw_input("INGRESE ALIAS DEL BOT: ")
+ALIAS = raw_input("INGRESE SU ALIAS --> ")
+COMPUTADORA = raw_input("PONLE UN ALIAS A TU BOT :) --> ")
 JUGADORES = [ALIAS, COMPUTADORA]
 
 class Tablero():
@@ -127,7 +125,7 @@ class Tablero():
 				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
 				self.refresh()
-				time.sleep(.1)
+				time.sleep(1)
 
 		else:
 			i, j = coordsToGrid(x,y)
@@ -147,7 +145,7 @@ class Tablero():
 				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
 				self.refresh()
-				time.sleep(.1)
+				time.sleep(.5)
 
 	def handleGanador(self):
 		ganador = False

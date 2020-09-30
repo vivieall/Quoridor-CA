@@ -43,6 +43,7 @@ class Jugador(object):
     def legal_movimiento(self, x, y, tablero):
         if (x<0 or x>8 or y<0 or y>8):
             return False
+
         # SI NO ESTA DENTRO DE LA MISMA FILA
         if (self.x == x and self.y == y):
             return False
@@ -104,7 +105,7 @@ class Jugador(object):
     def legal_placement(self, tablero):
         return True
 
-    def camino_exists(self, b): #, w):
+    def camino_exists(self, b):
         p1_camino = False
         p2_camino = False
         win_fila1 = [(0,8),(1,8),(2,8),(3,8),(4,8),(5,8),(6,8),(7,8),(8,8)]
@@ -137,7 +138,7 @@ class Jugador(object):
             movimientos.append(Casilla(self.x-1, self.y+1))
 
             result = []
-            for m in movimientos:
+            for m in movimientos: #conteo de movimientos
                 if self.legal_movimiento(m.x, m.y, estado):
                     result.append(m)
         else:
@@ -146,7 +147,6 @@ class Jugador(object):
             movimientos.append(Casilla(opp.x, opp.y+1))
             movimientos.append(Casilla(opp.x+1, opp.y))
             movimientos.append(Casilla(opp.x-1, opp.y))
-
             movimientos.append(Casilla(opp.x, opp.y-2))
             movimientos.append(Casilla(opp.x, opp.y+2))
             movimientos.append(Casilla(opp.x-2, opp.y))
