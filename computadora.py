@@ -23,27 +23,12 @@ class Computadora(Jugador):
 
 # BaseLine nos ayuda a ubicar todos los posibles movimientos proximos
 # y selecciona una de manera aleatoria.
-class BaseLine(Computadora):
-    def __init__(self, num):
-        super(BaseLine, self).__init__(num)
-
-    def finalMovimiento(self, estado):
-        movimientos = self.possibleMovimientos(estado)
-        opcion = random.randint(0, len(movimientos))
-        self.movimiento(movimientos[opcion].x, movimientos[opcion].y, estado)
 
 
 # Heuristica nos ayuda a definir la minima distancia de caminos.
 # Se verifica la distancia del jugador y del oponente para
 # tomar una mejor decision en base a las menores distancias.
-class Heuristica(Computadora):
-    def __init__(self, num):
-        super(Heuristica, self).__init__(num)
 
-    def finalMovimiento(self, estado):
-        minMovimiento = None
-        if minMovimiento == None:
-            self.finalMovimiento(estado)
 
 class Minimax(Computadora):
     def __init__(self, num):

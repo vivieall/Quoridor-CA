@@ -10,7 +10,7 @@ from estado import *
 CASILLA_SIZE = 50
 JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
 CASILLA_PADDING = 10
-BORDER = 10
+BORDER = 40
 NUM_FILAS = int(input("INGRESE NUMERO DE CASILLAS: "))
 NUM_COLUMNAS = int(NUM_FILAS)
 CONTROL_WIDTH = 100
@@ -125,7 +125,7 @@ class Tablero():
 				self.estado.jugadores[self.turno].finalMovimiento(self.estado)
 				self.sigTurno()
 				self.refresh()
-				time.sleep(1)
+				time.sleep(.5)
 
 		else:
 			i, j = coordsToGrid(x,y)
@@ -177,7 +177,7 @@ class Tablero():
 			self.canvas.delete(self.jugador_sombra)
 			self.jugador_sombra = None
 
-
+##Escribe los valores de x e y y los retorna como coordenadas precisas de pixeles
 def gridToCoords(i, j):
 	if (0<=i<=8) and (0<=j<=8):
 		x = BORDER + CASILLA_PADDING/2 + (i)*(CASILLA_SIZE+CASILLA_PADDING)
