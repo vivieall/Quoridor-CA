@@ -92,10 +92,6 @@ class Minimax(Computadora):
             minMovimientoCamino = minCaminoLen(node.movimientoX, node.movimientoY, self.win_fila, estado)
             minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
             return minOppCamino - minMovimientoCamino
-        else:
-            minWinCamino = minCaminoLen(self.x, self.y, self.win_fila, estado)
-            minOppCamino = minCaminoLen(opp.x, opp.y, self.opp_fila, estado)
-            return minOppCamino - minWinCamino
 
 #Declarando el nodo
 class Node():
