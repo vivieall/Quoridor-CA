@@ -1,4 +1,3 @@
-
 import estado
 from sys import maxsize
 
@@ -14,15 +13,13 @@ def caminoExists(start, end, estado):
         return False
     return True
 
-#ESPACIO DE BUSQUEDA DEL TABLERO, DESDE POSICION INICIAL
-#HASTA LA ULTIMA POSICION, RECORRE DESDE LA RAIZ A TODOS LOS NODOS HIJOS / PADRE
-#SE LLAMA AL ALGORITMO HEURISTICA QUE TIENE DEFINIDO POS. INICIAL Y FINAl.
+#ESPACIO DE BUSQUEDA DEL TABLERO, DESDE POSICION INICIAL HASTA LA ULTIMA POSICION, RECORRE DESDE LA RAIZ A
+# TODOS LOS NODOS HIJOS / PADRE, SE LLAMA AL ALGORITMO HEURISTICA QUE TIENE DEFINIDO POS. INICIAL Y FINAl.
 def star(start, end, estado):
     visitado = set()
     frontera = list()
     frontera.append(start)
     origen = {}
-
     gScore = {}
 
     for i in range(0, 9):
@@ -38,27 +35,7 @@ def star(start, end, estado):
     fScore[start] = heuristica(start, end)
 
     while len(frontera) != 0:
-        actual = smallest(frontera, fScore)
-        if actual == end:
-            return make_camino(origen, actual)
-
-        frontera.remove(actual)
-        visitado.add(actual)
-
-        hijos = get_sucesores(actual)
-        for hijo in hijos:
-            if not (hijo in visitado):
-                if not bloqueado(hijo[0], hijo[1], actual[0], actual[1], estado):
-                    frontera.append(hijo)
-
-            tent_gScore = gScore[actual] + 1
-            if tent_gScore >= gScore[hijo]:
-                continue
-
-            origen[hijo] = actual
-            gScore[hijo] = tent_gScore
-            fScore[hijo] = gScore[hijo] + heuristica(hijo, end)
-    return []
+        return []
 
 #FUNCION QUE MARCA EL CAMINO QUE SE REALIZARA
 def make_camino(origen, actual):
@@ -95,7 +72,6 @@ def bfs(start, end, tablero):
         padre = frontera.pop(0)
         if (padre == end):
             return True
-
         hijos = get_sucesores(padre)
         for hijo in hijos:
             if not (hijo in visitado):
@@ -116,7 +92,6 @@ def camino(start, end, tablero):
         padre = frontera.pop(0)
         if (padre == end):
             return distancia[end]
-
         hijos = get_sucesores(padre)
         for hijo in hijos:
             if not (hijo in visitado):
