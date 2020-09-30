@@ -1,9 +1,11 @@
 # By Viviana - Team Group()
 
-import Tkinter
+import tkinter
 import math
 import time
 from sys import argv
+
+from pip._vendor.distlib.compat import raw_input
 
 from estado import *
 
@@ -11,8 +13,8 @@ CASILLA_SIZE = 50
 JUGADOR_SIZE = int(.8 * CASILLA_SIZE)
 CASILLA_PADDING = 10
 BORDER = 10
-NUM_FILAS = input("INGRESE NUMERO DE CASILLAS: ")
-NUM_COLUMNAS = NUM_FILAS
+NUM_FILAS = int(input("INGRESE NUMERO DE CASILLAS: "))
+NUM_COLUMNAS = int(NUM_FILAS)
 CONTROL_WIDTH = 100
 COLORS = {'bg': '#8d2014', 'casilla': '#000000', 'panel': '#333333', 'text': '#ffffff',
 		'jugadores': ['#d0a41e', '#ffffff'], 'jugadores-sombras': ['#9999ff', '#ffbdbd']}
@@ -36,13 +38,13 @@ class Tablero():
 		self.computadora_count = '0'
 		self.actual_element = None
 		for _ in range(NUM_COLUMNAS):
-			self.casillas.append(range(NUM_FILAS))
+			self.casillas.append(list(range(NUM_FILAS)))
 
 	def nuevoJuego(self, computadora_count):
 		if self.root:
 			self.root.destroy()
 
-		self.root = Tkinter.Tk()
+		self.root = tkinter.Tk()
 		self.root.title("Quoridor By Viviana, Angel & Richard")
 
 		self.root.bind("<Escape>", lambda e: self.handleSalir())
@@ -52,7 +54,7 @@ class Tablero():
 
 		self.height = (NUM_FILAS*CASILLA_SIZE) + (NUM_FILAS*CASILLA_PADDING) + (2*BORDER)
 		self.width = self.height + CONTROL_WIDTH
-		self.canvas = Tkinter.Canvas(self.root, width=self.width, height=self.height, background=COLORS['bg'])
+		self.canvas = tkinter.Canvas(self.root, width=self.width, height=self.height, background=COLORS['bg'])
 		self.canvas.pack()
 		self.dibujarCasillas()
 

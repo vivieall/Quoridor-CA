@@ -3,10 +3,10 @@ import random
 import copy
 
 from estado import *
-from sys import maxint
+from sys import maxsize
 
 #Definicion MIN & MAX
-minint = -maxint - 1
+minint = -maxsize - 1
 
 class Computadora(Jugador):
     def __init__(self, num):
@@ -46,8 +46,8 @@ class Heuristica(Computadora):
         minOppCamino = minCaminoLen(oponente.x, oponente.y, self.fila_oponente, estado)
         minMovimientoCamino = minCaminoLen(self.x, self.y, self.fila_triunfo, estado)
 
-        min_diferencia = maxint
-        minCamino = maxint
+        min_diferencia = maxsize
+        minCamino = maxsize
         minMovimiento = None
         movimientos = self.possibleMovimientos(estado)
 
@@ -73,7 +73,7 @@ class Minimax(Computadora):
 
         for m in possible_movimientos:
             node = Node(self.jugador_num, estado, "movimiento", m.x, m.y)
-            movimientos[node] = self.alfabeta(node, 0, minint, maxint, True)
+            movimientos[node] = self.alfabeta(node, 0, minint, maxsize, True)
 
         movimiento = max(movimientos, key=movimientos.get)
 
@@ -93,7 +93,7 @@ class Minimax(Computadora):
             return mejorPosicion
 
         else:
-            mejorPosicion = maxint
+            mejorPosicion = maxsize
             hijos = node.hijos(maximizingJugador)
             for hijo in hijos:
                 v = self.miniMax(hijo, depth - 1, True)
@@ -118,7 +118,7 @@ class Minimax(Computadora):
             return mejorPosicion
 
         else:
-            mejorPosicion = maxint
+            mejorPosicion = maxsize
             hijos = node.hijos(maximizingJugador)
             for hijo in hijos:
                 v = self.alfabeta(hijo, depth - 1, alfa, beta, True)
@@ -172,7 +172,7 @@ class Node():
 
 #Funcion que halla el caminito (el tamanio mas minimo)
 def minCaminoLen(x, y, win_fila, estado):
-    minCamino = maxint
+    minCamino = maxsize
     for end in win_fila:
         camino_len = busqueda.camino((x, y), end, estado)
         if camino_len < minCamino:

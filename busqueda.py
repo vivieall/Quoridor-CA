@@ -1,6 +1,6 @@
 
 import estado
-from sys import maxint
+from sys import maxsize
 
 #ESPACIO DE BUSQUEDA QUE DEFINE EL TAMANIO PARA DAR POS INICIAL Y FINAL
 def starLength(start, end, estado):
@@ -27,13 +27,13 @@ def star(start, end, estado):
 
     for i in range(0, 9):
         for j in range(0, 9):
-            gScore[(i, j)] = maxint
+            gScore[(i, j)] = maxsize
     gScore[start] = 0
     fScore = {}
 
     for i in range(0, 9):
         for j in range(0, 9):
-            fScore[(i, j)] = maxint
+            fScore[(i, j)] = maxsize
 
     fScore[start] = heuristica(start, end)
 
@@ -124,7 +124,7 @@ def camino(start, end, tablero):
                     frontera.append(hijo)
                     distancia[hijo] = distancia[padre] + 1
                     visitado.add(hijo)
-    return maxint
+    return maxsize
 
 #FUNCION QUE OBTIENE TODOS LOS NODOS HIJOS DEL PADRE QUE SE ENCUENTRA
 def get_sucesores(padre):
