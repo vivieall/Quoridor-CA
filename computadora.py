@@ -31,34 +31,34 @@ class Minimax(Computadora):
         if movimiento.movimiento_type == "movimiento":
             self.movimiento(movimiento.movimientoX, movimiento.movimientoY, estado)
 
-    def miniMax(self, nodo, depth, maximizingJugador):
-        if depth == 0 or self.ganadorMovimiento(nodo):
+    def miniMax(self, nodo, profundidad, maximizeJugador):
+        if profundidad == 0 or self.ganadorMovimiento(nodo):
             return self.sfs(nodo, nodo.estado)
-        if maximizingJugador:
+        if maximizeJugador:
             mejorPosicion = minint
-            hijos = nodo.hijos(maximizingJugador)
+            hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.miniMax(hijo, depth - 1, False)
+                v = self.miniMax(hijo, profundidad - 1, False)
                 mejorPosicion = max(mejorPosicion, v)
             return mejorPosicion
         else:
             mejorPosicion = maxsize
-            hijos = nodo.hijos(maximizingJugador)
+            hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.miniMax(hijo, depth - 1, True)
+                v = self.miniMax(hijo, profundidad - 1, True)
                 mejorPosicion = min(mejorPosicion, v)
             return mejorPosicion
 
     #Algoritmo que reduce el numero de nodos evaluados en un arbol
     #SE HACE USO DEL ALGORITMO MINIMAX
-    def alfabeta(self, nodo, depth, alfa, beta, maximizingJugador):
-        if depth == 0 or self.ganadorMovimiento(nodo):
+    def alfabeta(self, nodo, profundidad, alfa, beta, maximizeJugador):
+        if profundidad == 0 or self.ganadorMovimiento(nodo):
             return self.sfs(nodo, nodo.estado)
-        if maximizingJugador:
+        if maximizeJugador:
             mejorPosicion = minint
-            hijos = nodo.hijos(maximizingJugador)
+            hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.alfabeta(hijo, depth - 1, alfa, beta, False)
+                v = self.alfabeta(hijo, profundidad - 1, alfa, beta, False)
                 mejorPosicion = max(mejorPosicion, v)
                 alfa = max(alfa, mejorPosicion)
                 if beta <= alfa:
@@ -66,9 +66,9 @@ class Minimax(Computadora):
             return mejorPosicion
         else:
             mejorPosicion = maxsize
-            hijos = nodo.hijos(maximizingJugador)
+            hijos = nodo.hijos(maximizeJugador)
             for hijo in hijos:
-                v = self.alfabeta(hijo, depth - 1, alfa, beta, True)
+                v = self.alfabeta(hijo, profundidad - 1, alfa, beta, True)
                 mejorPosicion = min(mejorPosicion, v)
                 if beta <= alfa:
                     break
@@ -113,8 +113,8 @@ class Nodo():
 #Funcion que halla el caminito (el tamanio mas minimo)
 def minCaminoLen(x, y, win_fila, estado):
     minCamino = maxsize
-    for end in win_fila:
-        camino_len = busqueda.camino((x, y), end, estado)
+    for final in win_fila:
+        camino_len = busqueda.camino((x, y), final, estado)
         if camino_len < minCamino:
             minCamino = camino_len
     return minCamino

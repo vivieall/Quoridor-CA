@@ -2,29 +2,29 @@ from sys import maxsize
 
 #BUSQUEDA DEL CAMINO MAS CORTO DEL INICIO AL FINAL
 #Se comienza en la raiz y se exploran todos los vecinos de este nodo hijo.
-def bfs(start, end):
+def bfs(inicio, final):
     frontera = []
     visitado = set()
-    frontera.append(start)
-    visitado.add(start)
+    frontera.append(inicio)
+    visitado.add(inicio)
     while frontera != []:
         padre = frontera.pop(0)
-        if (padre == end):
+        if (padre == final):
             return True
     return False
 
 #FUNCION QUE DEFINE EL CAMINO DESDE LA POSICION INICIAL AL LLEGAR AL FINAL DEL TABLERO
-def camino(start, end, tablero):
+def camino(inicio, final, tablero):
     frontera = []
     visitado = set()
-    frontera.append(start)
-    visitado.add(start)
+    frontera.append(inicio)
+    visitado.add(inicio)
     distancia = {}
-    distancia[start] = 0
+    distancia[inicio] = 0
     while frontera != []:
         padre = frontera.pop(0)
-        if (padre == end):
-            return distancia[end]
+        if (padre == final):
+            return distancia[final]
         hijos = get_sucesores(padre)
         for hijo in hijos:
             if not (hijo in visitado):
