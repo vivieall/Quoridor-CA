@@ -5,3 +5,6 @@
 .idea/misc.xml
 *.pyc
 .DS_Store
+.idea/misc.xml
+.idea/Quoridor-CA.iml
+.idea/workspace.xml
