@@ -20,16 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="794a2bd6-efd5-4ad0-91f9-b17f8718655f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Quoridor-CA.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuoridorTP/DocumentoTP.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/QuoridorTP/Quoridor_TrabajoParcial_CA.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/QuoridorTP/Quoridor_TrabajoParcial_CA.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/computadora.py" beforeDir="false" afterPath="$PROJECT_DIR$/computadora.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +122,7 @@
       <workItem from="1601445286368" duration="1964000" />
       <workItem from="1601453557611" duration="5053000" />
       <workItem from="1601459747790" duration="1555000" />
+      <workItem from="1602348848935" duration="579000" />
     </task>
     <servers />
   </component>
