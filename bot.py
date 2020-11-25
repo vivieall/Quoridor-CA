@@ -31,17 +31,18 @@ class Minimax(BOT):
 
     def finalMovimiento(self, regla):
         movimientos = {}
-        posibleparedes = self.posibleParedes(regla)
-        posiblemovimientos = self.posibleMovimientos(regla)
-        for m in posiblemovimientos:
+        posible_paredes = self.posibleParedes(regla)
+        posible_movimientos = self.posibleMovimientos(regla)
+        print("Ingresa a finalMovimiento minMax")
+
+        for m in posible_movimientos:
             node = Node(self.jugador_num, regla, "movimiento", None, m.x, m.y)
             movimientos[node] = self.miniMax(node, 0, True)
-        for w in posibleparedes:
+        for w in posible_paredes:
             node = Node(self.jugador_num, regla, "pared", w)
             movimientos[node] = self.miniMax(node, 0, True)
 
-        print(len(movimientos))
-        movimiento = max(movimientos, key=movimientos.get())
+        movimiento = max(movimientos, key=movimientos.get)
 
         if movimiento.movimiento_type == "movimiento":
             self.movimiento(movimiento.movimientoX,
