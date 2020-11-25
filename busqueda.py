@@ -1,7 +1,6 @@
 import regla
 from sys import maxsize
 
-
 def make_camino(origen, actual):
     tot_camino = [actual]
     while actual in origen.keys():
@@ -28,8 +27,6 @@ def bfs(inicio, fin, tablero):
                     visitado.add(hijo)
     return False
 
-
-#Algoritmo Shortest Path First (Dijkstra)
 def camino(inicio, fin, tablero):
     frontera = []
     visitado = set()
@@ -52,7 +49,6 @@ def camino(inicio, fin, tablero):
 
     return maxsize
 
-
 def get_sucesores(padre):
     hijos = set()
     p0 = padre[0]
@@ -70,7 +66,6 @@ def get_sucesores(padre):
     if (y2 <= 8):
         hijos.add((p0, y2))
     return hijos
-
 
 def bloqueado(x1, y1, x2, y2, tablero):
     for pared in tablero.paredes:
