@@ -54,7 +54,7 @@ Minimax - BFS (Breadth-First Search) - Shortest Path First (Dijkstra)
 
 ## Screenshots 📸
 
-![Codigo documentado](https://cloud.githubusercontent.com/vivieall/Quoridor-CA/master/assets/cod.png)
+![Codigo documentado](assets/cod.png)
 
 ![Demostración del tablero](/assets/tablero.png)
 
