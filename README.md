@@ -13,16 +13,16 @@ Jupyter Notebook (o usar Colab para la lectura del informe)
 ### Iniciar el juego 👾
 
 ```
-Correr main.py
+main.py
 ```
 
-_Jugar contra el bot
+Jugar contra el bot
 
 ```
 "python tablero.py 1"
 ```
 
-__Jugar bot vs bot
+Jugar bot vs bot
 
 ```
 "python tablero.py 2"
@@ -30,7 +30,7 @@ __Jugar bot vs bot
 
 ## Ejecutando las pruebas ⚙️
 
-_Pruebas realizadas y documentadas en el COLAB
+Pruebas realizadas y documentadas en el COLAB
 
 https://colab.research.google.com/drive/1GMZmnafCmK0y0KewaGEuzmTR1N3XF-yn#scrollTo=UxnBC_FSwojI
 

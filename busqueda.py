@@ -49,6 +49,30 @@ def camino(inicio, fin, tablero):
 
     return maxsize
 
+#Algoritmo Dijkstra (Shortest Path First)
+def dijkstra(inicio, fin, tablero):
+
+        fila = len(fin)
+        columna = len(fin[0])
+        distancia = [float("Inf")] * fila
+        padre = [-1] * fila
+        distancia[tablero] = 0
+
+        cola = []
+        for i in range(fila):
+            cola.append(i)
+
+        while cola:
+            u = inicio.minDistance(distancia, cola)
+            cola.remove(u)
+            for i in range(cola):
+                if fin[u][i] and i in cola:
+                    if distancia[u] + fin[u][i] < distancia[i]:
+                        distancia[i] = distancia[u] + fin[u][i]
+                        padre[i] = u
+
+        return distancia
+
 def get_sucesores(padre):
     hijos = set()
     p0 = padre[0]
