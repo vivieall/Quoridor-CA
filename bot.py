@@ -6,8 +6,6 @@ from sys import maxsize
 minint = -maxsize - 1
 
 # Clase de interfaz BOT
-
-
 class BOT(Jugador):
     def __init__(self, num):
         super(BOT, self).__init__(num)
