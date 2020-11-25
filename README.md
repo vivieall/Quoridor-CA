@@ -42,7 +42,7 @@ https://colab.research.google.com/drive/1GMZmnafCmK0y0KewaGEuzmTR1N3XF-yn#scroll
 
 ## Algoritmos usados 📖
 
-MaxMin - BFS - Shortest Path
+Minimax - BFS (Breadth-First Search) - Shortest Path First (Dijkstra)
 
 
 ## Autores ✒️
@@ -54,8 +54,8 @@ MaxMin - BFS - Shortest Path
 
 ## Screenshots 📸
 
-![Codigo documentado](https://postimg.cc/WhXRM6Xd)
+![Codigo documentado](https://raw.githubusercontent.com/vivieall/Quoridor-CA/master/assets/cod.png)
 
-![Demostración del tablero](https://postimg.cc/4mJk7FbC)
+![Demostración del tablero](https://raw.githubusercontent.com/vivieall/Quoridor-CA/master/assets/tablero.png)
 
-![Demostración bot vs bot (¡sí son inteligentes!)](https://postimg.cc/hh8RGqmb)
+![Demostración bot vs bot (¡sí son inteligentes!)](https://raw.githubusercontent.com/vivieall/Quoridor-CA/master/assets/juego.png)
