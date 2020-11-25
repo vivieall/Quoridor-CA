@@ -22,7 +22,7 @@ class BOT(Jugador):
                              (4, 8), (5, 8), (6, 8), (7, 8), (8, 8)]
             self.opp = 1
 
-
+#Algoritmo miniMax
 class Minimax(BOT):
     def __init__(self, num):
         super(Minimax, self).__init__(num)

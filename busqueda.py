@@ -9,7 +9,7 @@ def make_camino(origen, actual):
         tot_camino.append(actual)
     return tot_camino
 
-
+#Algoritmo BFS (Breadth-First Search)
 def bfs(inicio, fin, tablero):
     frontera = []
     visitado = set()
@@ -29,6 +29,7 @@ def bfs(inicio, fin, tablero):
     return False
 
 
+#Algoritmo Shortest Path First (Dijkstra)
 def camino(inicio, fin, tablero):
     frontera = []
     visitado = set()

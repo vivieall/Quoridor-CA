@@ -54,8 +54,8 @@ MaxMin - BFS - Shortest Path
 
 ## Screenshots 📸
 
-![Codigo documentado](https://postimg.cc/WhXRM6Xd][img]https://i.postimg.cc/WhXRM6Xd/Captura-de-Pantalla-2020-11-25-a-la-s-2-09-26-a-m.png)
+![Codigo documentado](https://postimg.cc/WhXRM6Xd)
 
-![Demostración del tablero](https://postimg.cc/4mJk7FbC][img]https://i.postimg.cc/4mJk7FbC/Captura-de-Pantalla-2020-11-25-a-la-s-2-09-38-a-m.png)
+![Demostración del tablero](https://postimg.cc/4mJk7FbC)
 
-![Demostración bot vs bot (¡sí son inteligentes!)](https://postimg.cc/hh8RGqmb][img]https://i.postimg.cc/hh8RGqmb/Captura-de-Pantalla-2020-11-25-a-la-s-2-10-46-a-m.png)
+![Demostración bot vs bot (¡sí son inteligentes!)](https://postimg.cc/hh8RGqmb)
